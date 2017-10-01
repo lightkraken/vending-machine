@@ -6,6 +6,25 @@ angular.module('vendingApp')
   function($scope) {
 
     $scope.returnedItems = [];
+    $scope.display = '';
+
+    $scope.inventory = {
+      soda: {
+        red: [],
+        blue: [],
+        green: []
+      },
+      candy: {
+        red: [],
+        blue: [],
+        green: []
+      },
+      chips: {
+        red: [],
+        blue: [],
+        green: []
+      }
+    };
 
     $scope.cash = {
       nickels: [],
@@ -50,5 +69,6 @@ angular.module('vendingApp')
         $scope.returnedItems.push(coin);
       }
     };
+
   }
 ]);
