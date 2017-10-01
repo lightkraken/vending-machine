@@ -70,5 +70,40 @@ angular.module('vendingApp')
       }
     };
 
+    var checkInventoryAmount = function(collection) {
+      var total = 0;
+      _.forEach(collection, function(value) {
+        total += value.length;
+      });
+      return total;
+    };
+
+    var exactChangeChecker = function(){
+      //Check if candy is present in the machine.
+      //Candy is $0.65 and requires one dime or two nickels of change.
+      if ((checkInventoryAmount($scope.inventory.candy) > 0)) {
+        if (($scope.cash.nickels.length < 2) && ($scope.cash.dimes.length < 1)) {
+          $scope.display = 'EXACT CHANGE ONLY';
+          return;
+        }
+      }
+      //Check for the presence of other inventory.
+      //Everything except candy requires one nickel of change.
+      if ((checkInventoryAmount($scope.inventory.soda) > 0) ||
+          (checkInventoryAmount($scope.inventory.chips) > 0)) {
+        if ($scope.cash.nickels.length < 1) {
+          $scope.display = 'EXACT CHANGE ONLY';
+          return;
+        }
+      }
+    };
+
+    $scope.$watch('cash', function () {
+      exactChangeChecker();
+    }, true);
+    $scope.$watch('inventory', function () {
+      exactChangeChecker();
+    }, true);
+
   }
 ]);
