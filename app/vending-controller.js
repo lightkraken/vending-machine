@@ -31,6 +31,24 @@ angular.module('vendingApp')
       }
     };
 
-    $scope.inputCash = function(coin){};
+    var measureCoin = function(candidateCoin, idealCoin){
+      if ((candidateCoin.weight === idealCoin.weight) &&
+          (candidateCoin.diameter === idealCoin.diameter) &&
+          (candidateCoin.thickness === idealCoin.thickness)) {
+        return true;
+      }
+    };
+
+    $scope.inputCash = function(coin){
+      if (measureCoin(coin, cashTypes.nickel)) {
+        $scope.cash.nickels.push(coin);
+      } else if (measureCoin(coin, cashTypes.dime)) {
+        $scope.cash.dimes.push(coin);
+      } else if (measureCoin(coin, cashTypes.quarter)) {
+        $scope.cash.quarters.push(coin);
+      } else {
+        $scope.returnedItems.push(coin);
+      }
+    };
   }
 ]);
