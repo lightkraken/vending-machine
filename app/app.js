@@ -1,3 +1,5 @@
 'use strict';
 
-angular.module('vendingApp', []);
+angular.module('vendingApp', [
+  'vendingApp.vendingMachine'
+]);

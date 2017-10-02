@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="vendingApp" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="vendingApp" ng-controller="VendingController" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,10 +11,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <p>Hello world</p>
+  <ul style="background: black; color: red;">
+    <li ng-repeat="item in inventory.soda.red track by $index">{{item}}</li>
+    <li ng-repeat="item in inventory.candy.red track by $index">{{item}}</li>
+    <li ng-repeat="item in inventory.chips.red track by $index">{{item}}</li>
+  </ul>
+  <ul style="background: black; color: blue;">
+    <li ng-repeat="item in inventory.soda.blue track by $index">{{item}}</li>
+    <li ng-repeat="item in inventory.candy.blue track by $index">{{item}}</li>
+    <li ng-repeat="item in inventory.chips.blue track by $index">{{item}}</li>
+  </ul>
+  <ul style="background: black; color: green;">
+    <li ng-repeat="item in inventory.soda.green track by $index">{{item}}</li>
+    <li ng-repeat="item in inventory.candy.green track by $index">{{item}}</li>
+    <li ng-repeat="item in inventory.chips.green track by $index">{{item}}</li>
+  </ul>
+
   <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/lodash/dist/lodash.js"></script>
+  <script src="bower_components/lodash/lodash.js"></script>
+
   <script src="app.js"></script>
-  <script src="vending-controller.js"></script>
+  <script src="vending-machine/modules/vending-module.js"></script>
+  <script src="vending-machine/services/cash-service.js"></script>
+  <script src="vending-machine/services/coin-validator-service.js"></script>
+  <script src="vending-machine/services/inventory-service.js"></script>
+  <script src="vending-machine/controllers/vending-controller.js"></script>
 </body>
 </html>
