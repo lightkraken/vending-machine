@@ -7,6 +7,7 @@ describe('vendingApp', function() {
   describe('CashService', function(){
     var CashService;
     var COINS;
+    var change;
 
     beforeEach(inject(function (_CashService_, _COINS_) {
       CashService = _CashService_;
@@ -28,15 +29,61 @@ describe('vendingApp', function() {
       });
     });
 
+    describe('getting the total credit', function(){
+      it('should display the total cash value of coins that the user has inserted', function(){
+        expect(CashService.getTotalCredit()).toEqual(0);
+        CashService.insertCoin(COINS.NICKEL.label, COINS.NICKEL);
+        CashService.insertCoin(COINS.DIME.label, COINS.DIME);
+        CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
+        CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
+        expect(CashService.getTotalCredit()).toEqual(65);
+      });
+    });
+
     describe('refunding coins', function(){
-      it('should return the coins that have been inserted', function(){
+      it('should refund the coins that have been inserted', function(){
+        expect(CashService.getTotalCredit()).toEqual(0);
         CashService.insertCoin(COINS.NICKEL.label, COINS.NICKEL);
         CashService.insertCoin(COINS.DIME.label, COINS.DIME);
         CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
         expect(CashService.getTotalCredit()).toEqual(40);
-        var result = CashService.refund();
-        expect(result).toEqual([COINS.NICKEL, COINS.DIME, COINS.QUARTER]);
+        expect(CashService.refund()).toEqual([COINS.NICKEL, COINS.DIME, COINS.QUARTER]);
         expect(CashService.getTotalCredit()).toEqual(0);
+      });
+    });
+
+    describe('completing a transaction', function(){
+      it('should take the money from the customer', function(){
+        CashService.insertCoin(COINS.NICKEL.label, COINS.NICKEL);
+        CashService.insertCoin(COINS.DIME.label, COINS.DIME);
+        CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
+        CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
+        expect(CashService.getTotalCredit()).toEqual(65);
+        CashService.pay(10);
+        expect(CashService.getTotalCredit()).toEqual(0);
+        expect(CashService.getCoinTotal(COINS.NICKEL.label)).toEqual(0);
+        expect(CashService.getCoinTotal(COINS.DIME.label)).toEqual(1);
+        expect(CashService.getCoinTotal(COINS.QUARTER.label)).toEqual(0);
+      });
+      it('should efficiently make change, giving the customer back as few coins as possible', function(){
+        CashService.insertCoin(COINS.NICKEL.label, COINS.NICKEL);
+        CashService.insertCoin(COINS.NICKEL.label, COINS.NICKEL);
+        CashService.insertCoin(COINS.DIME.label, COINS.DIME);
+        CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
+        expect(CashService.getTotalCredit()).toEqual(45);
+        change = CashService.pay(35);
+        expect(change).toEqual([COINS.DIME]);
+      });
+      it('should make change with smaller denominations when larger are not available', function(){
+        CashService.insertCoin(COINS.NICKEL.label, COINS.NICKEL);
+        CashService.insertCoin(COINS.NICKEL.label, COINS.NICKEL);
+        CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
+        expect(CashService.getTotalCredit()).toEqual(35);
+        change = CashService.pay(25);
+        expect(change).toEqual([
+          COINS.NICKEL,
+          COINS.NICKEL
+        ]);
       });
     });
 
