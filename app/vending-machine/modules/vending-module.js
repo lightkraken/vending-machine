@@ -24,4 +24,17 @@ angular.module('vendingApp.vendingMachine', [])
     value: 25, //cents
     label: 'quarter'
   }
+})
+
+.constant('ITEMS', {
+  color: {
+    RED: 'red',
+    GREEN: 'green',
+    BLUE: 'blue'
+  },
+  type: {
+    CANDY: 'candy',
+    SODA: 'soda',
+    CHIPS: 'chips'
+  }
 });

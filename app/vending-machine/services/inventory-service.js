@@ -2,43 +2,58 @@
 
 angular.module('vendingApp')
 
-.service('InventoryService', [
-  function (){
+.service('InventoryService', ['ITEMS',
+  function (ITEMS){
 
-    var stockInventory = function (item, collection, amount) {
+    var createItem = function(type, color){
+      return {
+        type: type,
+        color: color
+      };
+    };
+
+    var stockInventory = function (slot, type, color, amount) {
       for (var i=0; i < amount; i++) {
-        collection.push(item);
+        slot.push(createItem(type, color));
       }
     };
 
-    this.inventory = {
-      soda: {
-        red: [],
-        blue: [],
-        green: []
-      },
-      candy: {
-        red: [],
-        blue: [],
-        green: []
-      },
-      chips: {
-        red: [],
-        blue: [],
-        green: []
-      }
-    };
+    this.inventory = [
+      [ [],[],[] ],
+      [ [],[],[] ],
+      [ [],[],[] ]
+    ];
 
     this.stockRandomInventory = function(){
-      stockInventory('soda', this.inventory.soda.red, _.random(5));
-      stockInventory('soda', this.inventory.soda.blue, _.random(5));
-      stockInventory('soda', this.inventory.soda.green, _.random(5));
-      stockInventory('candy', this.inventory.candy.red, _.random(5));
-      stockInventory('candy', this.inventory.candy.blue, _.random(5));
-      stockInventory('candy', this.inventory.candy.green, _.random(5));
-      stockInventory('chips', this.inventory.chips.red, _.random(5));
-      stockInventory('chips', this.inventory.chips.blue, _.random(5));
-      stockInventory('chips', this.inventory.chips.green, _.random(5));
+      stockInventory(this.inventory[0][0], ITEMS.type.CHIPS, ITEMS.color.RED, _.random(5));
+      stockInventory(this.inventory[0][1], ITEMS.type.CHIPS, ITEMS.color.BLUE, _.random(5));
+      stockInventory(this.inventory[0][2], ITEMS.type.CHIPS, ITEMS.color.GREEN, _.random(5));
+      stockInventory(this.inventory[1][0], ITEMS.type.CANDY, ITEMS.color.RED, _.random(5));
+      stockInventory(this.inventory[1][1], ITEMS.type.CANDY, ITEMS.color.BLUE, _.random(5));
+      stockInventory(this.inventory[1][2], ITEMS.type.CANDY, ITEMS.color.GREEN, _.random(5));
+      stockInventory(this.inventory[2][0], ITEMS.type.SODA, ITEMS.color.RED, _.random(5));
+      stockInventory(this.inventory[2][1], ITEMS.type.SODA, ITEMS.color.BLUE, _.random(5));
+      stockInventory(this.inventory[2][2], ITEMS.type.SODA, ITEMS.color.GREEN, _.random(5));
+    };
+
+    this.inStock = function(row, column){
+      if(this.inventory[row][column].length) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    this.retrieveItem = function(row, column){
+      return this.inventory[row][column].pop();
+    };
+
+    this.getRowTotal = function(row) {
+      var total = 0;
+      _.forEach(this.inventory[row], function(column) {
+        total += column.length;
+      });
+      return total;
     };
 
 }]);

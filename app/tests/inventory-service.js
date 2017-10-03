@@ -7,44 +7,66 @@ describe('vendingApp', function() {
   describe('InventoryService', function(){
     var InventoryService;
     var COINS;
+    var ITEMS;
 
-    beforeEach(inject(function (_InventoryService_, _COINS_) {
+    beforeEach(inject(function (_InventoryService_, _COINS_, _ITEMS_) {
       InventoryService = _InventoryService_;
       COINS = _COINS_;
+      ITEMS = _ITEMS_;
     }));
 
     describe('stocking inventory', function(){
       it('should stock the inventory with a random amount of items', function(){
-        expect(InventoryService.inventory.candy.red).toEqual([]);
-        expect(InventoryService.inventory.candy.blue).toEqual([]);
-        expect(InventoryService.inventory.candy.green).toEqual([]);
-        expect(InventoryService.inventory.soda.red).toEqual([]);
-        expect(InventoryService.inventory.soda.blue).toEqual([]);
-        expect(InventoryService.inventory.soda.green).toEqual([]);
-        expect(InventoryService.inventory.chips.red).toEqual([]);
-        expect(InventoryService.inventory.chips.blue).toEqual([]);
-        expect(InventoryService.inventory.chips.green).toEqual([]);
-        InventoryService.stockRandomInventory();
         var min = 0;
         var max = 5;
-        expect((InventoryService.inventory.candy.red.length >= min) &&
-               (InventoryService.inventory.candy.red.length <= max)).toBe(true);
-        expect((InventoryService.inventory.candy.blue.length >= min) &&
-               (InventoryService.inventory.candy.blue.length <= max)).toBe(true);
-        expect((InventoryService.inventory.candy.green.length >= min) &&
-               (InventoryService.inventory.candy.green.length <= max)).toBe(true);
-        expect((InventoryService.inventory.soda.red.length >= min) &&
-               (InventoryService.inventory.soda.red.length <= max)).toBe(true);
-        expect((InventoryService.inventory.soda.blue.length >= min) &&
-               (InventoryService.inventory.soda.blue.length <= max)).toBe(true);
-        expect((InventoryService.inventory.soda.green.length >= min) &&
-               (InventoryService.inventory.soda.green.length <= max)).toBe(true);
-        expect((InventoryService.inventory.chips.red.length >= min) &&
-               (InventoryService.inventory.chips.red.length <= max)).toBe(true);
-        expect((InventoryService.inventory.chips.blue.length >= min) &&
-               (InventoryService.inventory.chips.blue.length <= max)).toBe(true);
-        expect((InventoryService.inventory.chips.green.length >= min) &&
-               (InventoryService.inventory.chips.green.length <= max)).toBe(true);                                         
+        InventoryService.stockRandomInventory();
+        expect((InventoryService.inventory[0][0].length >= min) &&
+               (InventoryService.inventory[0][0].length <= max)).toBe(true);
+        expect((InventoryService.inventory[0][1].length >= min) &&
+               (InventoryService.inventory[0][1].length <= max)).toBe(true);
+        expect((InventoryService.inventory[0][2].length >= min) &&
+               (InventoryService.inventory[0][2].length <= max)).toBe(true);
+        expect((InventoryService.inventory[1][0].length >= min) &&
+               (InventoryService.inventory[1][0].length <= max)).toBe(true);
+        expect((InventoryService.inventory[1][1].length >= min) &&
+               (InventoryService.inventory[1][1].length <= max)).toBe(true);
+        expect((InventoryService.inventory[1][2].length >= min) &&
+               (InventoryService.inventory[1][2].length <= max)).toBe(true);
+        expect((InventoryService.inventory[2][0].length >= min) &&
+               (InventoryService.inventory[2][0].length <= max)).toBe(true);
+        expect((InventoryService.inventory[2][1].length >= min) &&
+               (InventoryService.inventory[2][1].length <= max)).toBe(true);
+        expect((InventoryService.inventory[2][2].length >= min) &&
+               (InventoryService.inventory[2][2].length <= max)).toBe(true);
+      });
+    });
+
+    describe('checking stock', function(){
+      it('should check if an item is in stock or sold-out', function(){
+        var randomRow = _.random(2);
+        var randomColumn = _.random(2);
+        InventoryService.inventory[randomRow][randomColumn].push(ITEMS.type.CANDY);
+        expect(InventoryService.inStock(randomRow, randomColumn)).toBe(true);
+        InventoryService.retrieveItem(randomRow,randomColumn);
+        expect(InventoryService.inStock(randomRow, randomColumn)).toBe(false);
+      });
+
+      it('should count the number of items in one row', function(){
+        InventoryService.inventory[1][0].push(ITEMS.type.CANDY);
+        InventoryService.inventory[1][0].push(ITEMS.type.CANDY);
+        InventoryService.inventory[1][1].push(ITEMS.type.CANDY);
+        InventoryService.inventory[1][2].push(ITEMS.type.CANDY);
+        InventoryService.inventory[1][2].push(ITEMS.type.CANDY);
+        expect(InventoryService.getRowTotal(1)).toEqual(5);
+      });
+    });
+
+    describe('retrieving item', function(){
+      it('should retrieve an item from stock', function(){
+        var randomRow = _.random(2);
+        var randomColumn = _.random(2);
+        InventoryService.inventory[randomRow][randomColumn].push(ITEMS.type.CANDY);
+        expect(InventoryService.retrieveItem(randomRow,randomColumn)).toEqual(ITEMS.type.CANDY);
       });
     });
 
