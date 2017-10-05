@@ -37,4 +37,12 @@ angular.module('vendingApp.vendingMachine', [])
     SODA: 'soda',
     CHIPS: 'chips'
   }
+})
+
+.constant('MESSAGES', {
+  INSERTCOIN: "INSERT COIN",
+  EXACTCHANGE: "EXACT CHANGE ONLY",
+  SOLDOUT: "SOLD OUT",
+  PRICE: "PRICE",
+  THANKYOU: "THANK YOU"
 });
