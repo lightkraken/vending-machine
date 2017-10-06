@@ -45,4 +45,10 @@ angular.module('vendingApp.vendingMachine', [])
   SOLDOUT: "SOLD OUT",
   PRICE: "PRICE",
   THANKYOU: "THANK YOU"
+})
+
+.constant('STATES', {
+  IDLE: 'idle',
+  MONEY: 'money',
+  DISABLED: 'disabled'
 });
