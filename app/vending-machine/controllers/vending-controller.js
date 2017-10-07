@@ -2,71 +2,121 @@
 
 angular.module('vendingApp')
 
-.controller('VendingController', ['$scope', 'COINS', 'CashService', 'InventoryService', 'CoinValidatorService',
-  function($scope, COINS, CashService, InventoryService, CoinValidatorService) {
+.controller('VendingController', ['$scope', 'COINS', 'STATES', 'PRICES', 'CashService',
+            'InventoryService', 'CoinValidatorService', 'MessageService', 'OutputService',
+            'StateService',
+  function($scope, COINS, STATES, PRICES, CashService, InventoryService,
+           CoinValidatorService, MessageService, OutputService, StateService) {
+
     InventoryService.stockRandomInventory();
+    StateService.setIdle();
 
     $scope.inventory = InventoryService.inventory;
+    $scope.returnedItems = OutputService.returnedItems;
+    $scope.dispensedItems = OutputService.dispensedItems;
+    $scope.message = MessageService.message;
 
-    $scope.returnedItems = [];
+    //------------------------------------\\
+    //  USER INSERTS COINS
+    //------------------------------------\\
 
+    var insertCoin = function(coin){
+      var coinResult = CoinValidatorService.validateCoin(coin);
+      var totalCredit = CashService.getTotalCredit();
+      if ((totalCredit >= 100 || !coinResult)) {
+        OutputService.returnItems(coin);
+        return false;
+      } else {
+        CashService.insertCoin(coinResult, coin);
+        MessageService.totalCredit(CashService.getTotalCredit());
+        return true;
+      }
+    };
+    var idleInsertCoin = function(coin){
+      if (insertCoin(coin)) {
+        StateService.setMoney();
+      }
+    };
+    var disabledInstertCoin = function(coin){
+      OutputService.returnItems(coin);
+    };
     $scope.insertCoin = function(coin){
-      switch (CoinValidatorService.validateCoin(coin)) {
-        case COINS.NICKEL.label:
-          CashService.insertCoin(COINS.NICKEL.label, coin);
+      switch (StateService.state) {
+        case STATES.IDLE:
+          idleInsertCoin(coin);
           break;
-        case COINS.DIME.label:
-          CashService.insertCoin(COINS.DIME.label, coin);
+        case STATES.MONEY:
+          insertCoin(coin);
           break;
-        case COINS.DIME.label:
-          CashService.insertCoin(COINS.QUARTER.label, coin);
+        case STATES.DISABLED:
+          disabledInstertCoin(coin);
           break;
-        default:
-          $scope.returnedItems.push(coin);
       }
     };
 
-    $scope.getTotalCredit = function(){
-      return CashService.getTotalCredit();
+    //------------------------------------\\
+    //  USER PRESSES REFUND
+    //------------------------------------\\
+
+    var refund = function(){
+      OutputService.returnItems(CashService.refund());
+      StateService.setIdle();
+    };
+    $scope.refund = function(){
+      switch (StateService.state) {
+        case STATES.IDLE:
+          break;
+        case STATES.MONEY:
+          refund();
+          break;
+        case STATES.DISABLED:
+          break;
+      }
     };
 
-    $scope.refund = function() {
-      $scope.returnedItems = $scope.returnedItems.concat(CashService.refund());
-    };
+    //------------------------------------\\
+    //  USER CHOOSES ITEM
+    //------------------------------------\\
 
-    // $scope.display = '';
-    // $scope.cashBank = CashService.cashBank;
-    //
-    // var checkInventoryAmount = function(collection) {
-    //   var total = 0;
-    //   _.forEach(collection, function(value) {
-    //     total += value.length;
-    //   });
-    //   return total;
-    // };
-    //
-    // var exactChangeCheck = function(){
-    //   //Check if candy is present in the machine.
-    //   //Candy is $0.65 and requires one dime or two nickels of change.
-    //   if ((checkInventoryAmount($scope.inventory.candy) > 0)) {
-    //     if (($scope.cashBank.nickels.length < 2) && ($scope.cashBank.dimes.length < 1)) {
-    //       $scope.display = 'EXACT CHANGE ONLY';
-    //       return;
-    //     }
-    //   }
-    //   //Check for the presence of other inventory.
-    //   //Everything except candy requires one nickel of change.
-    //   if ((checkInventoryAmount($scope.inventory.soda) > 0) ||
-    //       (checkInventoryAmount($scope.inventory.chips) > 0)) {
-    //     if ($scope.cashBank.nickels.length < 1) {
-    //       $scope.display = 'EXACT CHANGE ONLY';
-    //       return;
-    //     }
-    //   }
-    // };
-    //
-    // $scope.$watch('inventory', function(){
-    //   exactChangeCheck();
-    // });
+    var chooseItem = function(row, column){
+      if (InventoryService.inStock(row, column)) {
+        return true;
+      } else {
+        MessageService.notifySoldOut();
+        return false;
+      }
+    };
+    var idleChooseItem = function(row, column){
+      if (chooseItem(row, column)) {
+        MessageService.notifyPrice(PRICES[row]);
+      }
+    };
+    var moneyChooseItem = function(row, column){
+      if (chooseItem(row, column)) {
+        if (CashService.getTotalCredit() >= PRICES[row]) {
+          var change = CashService.pay(PRICES[row]);
+          if (change) {
+            OutputService.returnItems(change);
+          }
+          OutputService.dispenseItem(InventoryService.retrieveItem(row, column));
+          StateService.setDisabled();
+          MessageService.notifyThankYou().then(StateService.setIdle);
+        } else {
+          MessageService.notifyPrice(PRICES[row]);
+        }
+      }
+    };
+    $scope.chooseItem = function(row, column){
+      switch (StateService.state) {
+        case STATES.IDLE:
+          idleChooseItem(row, column);
+          break;
+        case STATES.MONEY:
+          moneyChooseItem(row, column);
+          break;
+        case STATES.DISABLED:
+          break;
+      }
+    };
   }
 ]);

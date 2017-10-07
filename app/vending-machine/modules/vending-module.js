@@ -51,4 +51,10 @@ angular.module('vendingApp.vendingMachine', [])
   IDLE: 'idle',
   MONEY: 'money',
   DISABLED: 'disabled'
-});
+})
+
+.constant('PRICES', [
+  50,
+  65,
+  100
+]);
