@@ -12,6 +12,7 @@ describe('vendingApp', function() {
     }));
 
     describe('returning items', function(){
+
       it('should return items to the coin return', function(){
         var item = {thing: 'penny'};
         var otherItems = [
@@ -30,9 +31,11 @@ describe('vendingApp', function() {
           otherItems[2]
         ]);
       });
+
     });
 
     describe('dispensing items', function(){
+
       it('should dispense items to the customer', function(){
         var item = {thing: 'soda'};
         var otherItem = {thing: 'candy'};
@@ -42,7 +45,9 @@ describe('vendingApp', function() {
         OutputService.dispenseItem(otherItem);
         expect(OutputService.dispensedItems).toEqual([item,otherItem]);
       });
+
     });
 
   });
+  
 });

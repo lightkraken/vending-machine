@@ -16,6 +16,7 @@ describe('vendingApp', function() {
     }));
 
     describe('stocking inventory', function(){
+
       it('should stock the inventory with a random amount of items', function(){
         var min = 0;
         var max = 5;
@@ -39,9 +40,11 @@ describe('vendingApp', function() {
         expect((InventoryService.inventory[2][2].length >= min) &&
                (InventoryService.inventory[2][2].length <= max)).toBe(true);
       });
+
     });
 
     describe('checking stock', function(){
+
       it('should check if an item is in stock or sold-out', function(){
         var randomRow = _.random(2);
         var randomColumn = _.random(2);
@@ -59,16 +62,20 @@ describe('vendingApp', function() {
         InventoryService.inventory[1][2].push(ITEMS.type.CANDY);
         expect(InventoryService.getRowTotal(1)).toEqual(5);
       });
+
     });
 
     describe('retrieving item', function(){
+
       it('should retrieve an item from stock', function(){
         var randomRow = _.random(2);
         var randomColumn = _.random(2);
         InventoryService.inventory[randomRow][randomColumn].push(ITEMS.type.CANDY);
         expect(InventoryService.retrieveItem(randomRow,randomColumn)).toEqual(ITEMS.type.CANDY);
       });
+
     });
 
   });
+  
 });

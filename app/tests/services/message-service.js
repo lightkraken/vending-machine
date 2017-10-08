@@ -16,20 +16,25 @@ describe('vendingApp', function() {
     }));
 
     describe('idle message', function(){
+
       it('should display INSERT COIN', function(){
         MessageService.idle();
         expect(MessageService.message).toEqual(MESSAGES.INSERTCOIN);
       });
+
     });
 
     describe('idle with low cash message', function(){
+
       it('should display EXACT CHANGE ONLY', function(){
         MessageService.idleLowCash();
         expect(MessageService.message).toEqual(MESSAGES.EXACTCHANGE);
       });
+
     });
 
     describe('total credit message', function(){
+
       it('should display the value of coins inserted', function(){
         MessageService.totalCredit(50);
         expect(MessageService.message).toEqual('$0.50');
@@ -38,16 +43,20 @@ describe('vendingApp', function() {
         MessageService.totalCredit(100);
         expect(MessageService.message).toEqual('$1.00');
       });
+
     });
 
     describe('no message', function(){
+
       it('should display nothing', function(){
         MessageService.noMessage();
         expect(MessageService.message).toEqual('');
       });
+
     });
 
     describe('thank you notification', function(){
+
       it('should display THANK YOU, and return a promise that resolves after a moment', function(){
         var resolved = false;
         MessageService.notifyThankYou().then(function(){
@@ -58,9 +67,11 @@ describe('vendingApp', function() {
         $timeout.flush();
         expect(resolved).toBe(true);
       });
+
     });
 
     describe('sold out notification', function(){
+
       it('should display SOLD OUT for a moment, then return to the previous message', function(){
         MessageService.idle();
         MessageService.notifySoldOut();
@@ -77,9 +88,11 @@ describe('vendingApp', function() {
         $timeout.flush();
         expect(MessageService.message).toEqual(MESSAGES.INSERTCOIN);
       });
+
     });
 
     describe('price notification', function(){
+
       it('should display the PRICE for a moment, then return to the previous message', function(){
         MessageService.idle();
         MessageService.notifyPrice(65);
@@ -96,7 +109,9 @@ describe('vendingApp', function() {
         $timeout.flush();
         expect(MessageService.message).toEqual(MESSAGES.INSERTCOIN);
       });
+
     });
 
   });
+  
 });

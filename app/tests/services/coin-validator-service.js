@@ -29,8 +29,9 @@ describe('vendingApp', function() {
         };
         expect(CoinValidatorService.validateCoin(penny)).toBeUndefined();
       });
-      
+
     });
 
   });
+  
 });

@@ -48,6 +48,7 @@ describe('vendingApp', function() {
         });
 
         describe('and 2 or more nickels', function(){
+
           it('should display INSERT COIN', function(){
             spyOn(CashService, 'getCoinTotal').and.callFake(function(coin){
               if (coin === COINS.NICKEL.label) {
@@ -58,9 +59,11 @@ describe('vendingApp', function() {
             expect(MessageService.idle).toHaveBeenCalledTimes(1);
             expect(MessageService.idleLowCash).not.toHaveBeenCalled();
           });
+
         });
 
         describe('and 1 or more dimes', function(){
+
           it('should display INSERT COIN', function(){
             spyOn(CashService, 'getCoinTotal').and.callFake(function(coin){
               if (coin === COINS.DIME.label) {
@@ -71,6 +74,7 @@ describe('vendingApp', function() {
             expect(MessageService.idle).toHaveBeenCalledTimes(1);
             expect(MessageService.idleLowCash).not.toHaveBeenCalled();
           });
+
         });
 
         describe('and less than 2 nickels or less than 1 dime', function(){
@@ -88,6 +92,7 @@ describe('vendingApp', function() {
             StateService.setIdle();
             expect(MessageService.idleLowCash).toHaveBeenCalled();
           });
+
         });
 
       });
@@ -114,6 +119,7 @@ describe('vendingApp', function() {
             expect(MessageService.idle).toHaveBeenCalledTimes(1);
             expect(MessageService.idleLowCash).not.toHaveBeenCalled();
           });
+
         });
 
         describe('and no nickels', function(){
@@ -129,7 +135,9 @@ describe('vendingApp', function() {
             StateService.setIdle();
             expect(MessageService.idleLowCash).toHaveBeenCalled();
           });
+
         });
+
       });
 
       describe('with no stock at all', function(){
@@ -152,4 +160,5 @@ describe('vendingApp', function() {
     });
 
   });
+  
 });
