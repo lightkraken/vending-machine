@@ -16,18 +16,25 @@ angular.module('vendingApp')
       quarter: []
     };
 
+    var addToCashBank = function(coinType, coinArray){
+      cashBank[coinType] = cashBank[coinType].concat(coinArray);
+    };
+
+    var clearInsertedCash = function(){
+      _.each(insertedCash, function(value, key){
+        insertedCash[key] = [];
+      });
+    };
+
+    var bankCredit = function(){
+      addToCashBank(COINS.NICKEL.label, insertedCash.nickel);
+      addToCashBank(COINS.DIME.label, insertedCash.dime);
+      addToCashBank(COINS.QUARTER.label, insertedCash.quarter);
+      clearInsertedCash();
+    };
+
     this.insertCoin = function(coinType, coin){
-      switch (coinType) {
-        case COINS.NICKEL.label:
-          insertedCash.nickel.push(coin);
-          break;
-        case COINS.DIME.label:
-          insertedCash.dime.push(coin);
-          break;
-        case COINS.QUARTER.label:
-          insertedCash.quarter.push(coin);
-          break;
-      }
+      insertedCash[coinType].push(coin);
     };
 
     this.getTotalCredit = function(){
@@ -49,23 +56,11 @@ angular.module('vendingApp')
     };
 
     this.refund = function(){
-      var refund = [];
-      refund = refund.concat(insertedCash.nickel);
-      insertedCash.nickel = [];
-      refund = refund.concat(insertedCash.dime);
-      insertedCash.dime = [];
-      refund = refund.concat(insertedCash.quarter);
-      insertedCash.quarter = [];
+      var refund = _.reduce(insertedCash, function(result, value) {
+        return result.concat(value);
+      });
+      clearInsertedCash();
       return refund;
-    };
-
-    var bankCredit = function(){
-      cashBank.nickel = cashBank.nickel.concat(insertedCash.nickel);
-      insertedCash.nickel = [];
-      cashBank.dime = cashBank.dime.concat(insertedCash.dime);
-      insertedCash.dime = [];
-      cashBank.quarter = cashBank.quarter.concat(insertedCash.quarter);
-      insertedCash.quarter = [];
     };
 
     this.pay = function(price) {
