@@ -25,15 +25,16 @@ angular.module('vendingApp')
     ];
 
     this.stockRandomInventory = function(){
-      stockInventory(this.inventory[0][0], ITEMS.type.CHIPS, ITEMS.color.RED, _.random(5));
-      stockInventory(this.inventory[0][1], ITEMS.type.CHIPS, ITEMS.color.BLUE, _.random(5));
-      stockInventory(this.inventory[0][2], ITEMS.type.CHIPS, ITEMS.color.GREEN, _.random(5));
-      stockInventory(this.inventory[1][0], ITEMS.type.CANDY, ITEMS.color.RED, _.random(5));
-      stockInventory(this.inventory[1][1], ITEMS.type.CANDY, ITEMS.color.BLUE, _.random(5));
-      stockInventory(this.inventory[1][2], ITEMS.type.CANDY, ITEMS.color.GREEN, _.random(5));
-      stockInventory(this.inventory[2][0], ITEMS.type.SODA, ITEMS.color.RED, _.random(5));
-      stockInventory(this.inventory[2][1], ITEMS.type.SODA, ITEMS.color.BLUE, _.random(5));
-      stockInventory(this.inventory[2][2], ITEMS.type.SODA, ITEMS.color.GREEN, _.random(5));
+      var max = 5;
+      stockInventory(this.inventory[0][0], ITEMS.type.CHIPS, ITEMS.color.RED, _.random(max));
+      stockInventory(this.inventory[0][1], ITEMS.type.CHIPS, ITEMS.color.BLUE, _.random(max));
+      stockInventory(this.inventory[0][2], ITEMS.type.CHIPS, ITEMS.color.GREEN, _.random(max));
+      stockInventory(this.inventory[1][0], ITEMS.type.CANDY, ITEMS.color.RED, _.random(max));
+      stockInventory(this.inventory[1][1], ITEMS.type.CANDY, ITEMS.color.BLUE, _.random(max));
+      stockInventory(this.inventory[1][2], ITEMS.type.CANDY, ITEMS.color.GREEN, _.random(max));
+      stockInventory(this.inventory[2][0], ITEMS.type.SODA, ITEMS.color.RED, _.random(max));
+      stockInventory(this.inventory[2][1], ITEMS.type.SODA, ITEMS.color.BLUE, _.random(max));
+      stockInventory(this.inventory[2][2], ITEMS.type.SODA, ITEMS.color.GREEN, _.random(max));
     };
 
     this.inStock = function(row, column){

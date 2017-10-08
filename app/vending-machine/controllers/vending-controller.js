@@ -9,6 +9,7 @@ angular.module('vendingApp')
            CoinValidatorService, MessageService, OutputService, StateService) {
 
     InventoryService.stockRandomInventory();
+    CashService.stockRandomCashBank();
     StateService.setIdle();
 
     $scope.inventory = InventoryService.inventory;

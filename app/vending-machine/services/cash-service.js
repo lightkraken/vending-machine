@@ -16,6 +16,18 @@ angular.module('vendingApp')
       quarter: []
     };
 
+    var createCoins = function(coin, amount){
+      var coinArray = [];
+      for (var i=0; i < amount; i++) {
+        coinArray.push({
+          weight: coin.weight,
+          diameter: coin.diameter,
+          thickness: coin.thickness
+        });
+      }
+      return coinArray;
+    };
+
     var addToCashBank = function(coinType, coinArray){
       cashBank[coinType] = cashBank[coinType].concat(coinArray);
     };
@@ -31,6 +43,14 @@ angular.module('vendingApp')
       addToCashBank(COINS.DIME.label, insertedCash.dime);
       addToCashBank(COINS.QUARTER.label, insertedCash.quarter);
       clearInsertedCash();
+    };
+
+    this.stockRandomCashBank = function(){
+      var min = 1;
+      var max = 20;
+      addToCashBank(COINS.NICKEL.label, createCoins(COINS.NICKEL, _.random(min, max)));
+      addToCashBank(COINS.DIME.label, createCoins(COINS.DIME, _.random(min, max)));
+      addToCashBank(COINS.QUARTER.label, createCoins(COINS.QUARTER, _.random(min, max)));
     };
 
     this.insertCoin = function(coinType, coin){

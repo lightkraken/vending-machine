@@ -14,6 +14,20 @@ describe('vendingApp', function() {
       COINS = _COINS_;
     }));
 
+    describe('stocking cash bank', function(){
+      it('should stock the cash bank with a random amount of coins', function(){
+        var min = 1;
+        var max = 20;
+        CashService.stockRandomCashBank();
+        expect((CashService.getCoinTotal(COINS.NICKEL.label) >= min) &&
+               (CashService.getCoinTotal(COINS.NICKEL.label) <= max)).toBe(true);
+        expect((CashService.getCoinTotal(COINS.DIME.label) >= min) &&
+              (CashService.getCoinTotal(COINS.DIME.label) <= max)).toBe(true);
+        expect((CashService.getCoinTotal(COINS.QUARTER.label) >= min) &&
+               (CashService.getCoinTotal(COINS.QUARTER.label) <= max)).toBe(true);
+      });
+    });
+
     describe('inserting coins', function(){
 
       it('should add 5 cents of credit when a nickel is inserted', function() {
