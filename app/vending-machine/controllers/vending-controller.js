@@ -2,20 +2,33 @@
 
 angular.module('vendingApp')
 
-.controller('VendingController', ['$scope', 'COINS', 'STATES', 'PRICES', 'CashService',
+.controller('VendingController', ['$scope', 'COINS', 'STATES', 'PRICES', 'BROADCASTS', 'CashService',
             'InventoryService', 'CoinValidatorService', 'MessageService', 'OutputService',
             'StateService',
-  function($scope, COINS, STATES, PRICES, CashService, InventoryService,
+  function($scope, COINS, STATES, PRICES, BROADCASTS, CashService, InventoryService,
            CoinValidatorService, MessageService, OutputService, StateService) {
-
-    InventoryService.stockRandomInventory();
-    CashService.stockRandomCashBank();
-    StateService.setIdle();
 
     $scope.inventory = InventoryService.inventory;
     $scope.returnedItems = OutputService.returnedItems;
     $scope.dispensedItems = OutputService.dispensedItems;
     $scope.message = MessageService.message;
+
+    $scope.$on(BROADCASTS.INVENTORY, function(){
+      $scope.inventory = InventoryService.inventory;
+    });
+    $scope.$on(BROADCASTS.RETURNED, function(){
+      $scope.returnedItems = OutputService.returnedItems;
+    });
+    $scope.$on(BROADCASTS.DISPENSED, function(){
+      $scope.dispensedItems = OutputService.dispensedItems;
+    });
+    $scope.$on(BROADCASTS.MESSAGE, function(){
+      $scope.message = MessageService.message;
+    });
+
+    InventoryService.stockRandomInventory();
+    CashService.stockRandomCashBank();
+    StateService.setIdle();
 
     //------------------------------------\\
     //  USER INSERTS COINS

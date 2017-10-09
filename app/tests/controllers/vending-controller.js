@@ -30,6 +30,46 @@ describe('app module', function() {
         InventoryService = _InventoryService_;
     }));
 
+    describe('when inventory is updated', function(){
+
+      it('should update the displayed inventory', function(){
+        $scope.$digest();
+        expect($scope.inventory).toEqual(InventoryService.inventory);
+      });
+
+    });
+
+    describe('when message is updated', function(){
+
+      it('should update the displayed message', function(){
+        $scope.$digest();
+        expect($scope.message).toEqual(MessageService.message);
+      });
+
+    });
+
+    describe('when item is dispensed', function(){
+
+      it('should appear in the dispended item tray', function(){
+        var item = {thing: 'item'};
+        OutputService.dispenseItem(item);
+        $scope.$digest();
+        expect($scope.dispensedItems).toEqual(OutputService.dispensedItems);
+      });
+
+    });
+
+    describe('when item is returned', function(){
+
+      it('should appear in the coin return', function(){
+        var badCoin = {thing: 'coin'};
+        OutputService.returnItems(badCoin);
+        $scope.$digest();
+        expect($scope.returnedItems).toEqual(OutputService.returnedItems);
+      });
+
+    });
+
     describe('when user inserts a coin', function(){
 
       var penny = {
