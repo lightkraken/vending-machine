@@ -99,6 +99,8 @@ angular.module('vendingApp')
         } else if (changeDue >= 5 && this.getCoinTotal(COINS.NICKEL.label)) {
           largestCollection = cashBank.nickel;
           largestValue = 5;
+        } else {
+          break;
         }
         change.push(largestCollection.pop());
         changeDue -= largestValue;

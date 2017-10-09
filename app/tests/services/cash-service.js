@@ -111,6 +111,19 @@ describe('vendingApp', function() {
         ]);
       });
 
+      it('should make as much change as possible, without giving too much change, when insufficient change is available', function(){
+        CashService.insertCoin(COINS.NICKEL.label, COINS.NICKEL);
+        CashService.pay(5);
+        CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
+        CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
+        CashService.insertCoin(COINS.QUARTER.label, COINS.QUARTER);
+        expect(CashService.getTotalCredit()).toEqual(75);
+        change = CashService.pay(65);
+        expect(change).toEqual([
+          COINS.NICKEL
+        ]);
+      });
+
     });
 
   });
