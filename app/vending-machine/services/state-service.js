@@ -10,16 +10,16 @@ angular.module('vendingApp')
     this.state = '';
 
     this.setIdle = function(){
-      this.state = STATES.IDLE;
+      self.state = STATES.IDLE;
       onIdle();
     };
 
     this.setMoney = function(){
-      this.state = STATES.MONEY;
+      self.state = STATES.MONEY;
     };
 
     this.setDisabled = function(){
-      this.state = STATES.DISABLED;
+      self.state = STATES.DISABLED;
     };
 
     var onIdle = function(){
