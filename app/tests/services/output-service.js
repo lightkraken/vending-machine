@@ -6,9 +6,11 @@ describe('vendingApp', function() {
 
   describe('OutputService', function(){
     var OutputService;
+    var $rootScope;
 
-    beforeEach(inject(function (_OutputService_) {
+    beforeEach(inject(function (_OutputService_, _$rootScope_) {
       OutputService = _OutputService_;
+      $rootScope = _$rootScope_;
     }));
 
     describe('returning items', function(){
@@ -48,6 +50,16 @@ describe('vendingApp', function() {
 
     });
 
+    describe('on returning or dispensing', function(){
+      it('should broadcast that a change has occured', function(){
+        spyOn($rootScope, '$broadcast');
+        OutputService.returnItems('item');
+        OutputService.dispenseItem('item');
+        expect($rootScope.$broadcast).toHaveBeenCalledTimes(2);        
+      });
+
+    });
+
   });
-  
+
 });

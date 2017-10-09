@@ -5,11 +5,13 @@ describe('vendingApp', function() {
   beforeEach(module('vendingApp'));
 
   describe('InventoryService', function(){
+    var $rootScope;
     var InventoryService;
     var COINS;
     var ITEMS;
 
-    beforeEach(inject(function (_InventoryService_, _COINS_, _ITEMS_) {
+    beforeEach(inject(function (_$rootScope_, _InventoryService_, _COINS_, _ITEMS_) {
+      $rootScope = _$rootScope_;
       InventoryService = _InventoryService_;
       COINS = _COINS_;
       ITEMS = _ITEMS_;
@@ -76,6 +78,18 @@ describe('vendingApp', function() {
 
     });
 
+    describe('when inventory changes', function(){
+      it('should broadcast that a change has occured', function(){
+        spyOn($rootScope, '$broadcast');
+        var randomRow = _.random(2);
+        var randomColumn = _.random(2);
+        InventoryService.inventory[randomRow][randomColumn].push(ITEMS.type.CANDY);
+        InventoryService.retrieveItem(randomRow,randomColumn);
+        InventoryService.stockRandomInventory();
+        expect($rootScope.$broadcast).toHaveBeenCalledTimes(2);
+      });
+    });
+
   });
-  
+
 });

@@ -7,11 +7,13 @@ describe('vendingApp', function() {
   describe('MessageService', function(){
     var MessageService;
     var $timeout;
+    var $rootScope;
     var MESSAGES;
 
-    beforeEach(inject(function (_MessageService_, _$timeout_, _MESSAGES_) {
+    beforeEach(inject(function (_MessageService_, _$timeout_, _$rootScope_, _MESSAGES_) {
       MessageService = _MessageService_;
       $timeout = _$timeout_;
+      $rootScope = _$rootScope_;
       MESSAGES = _MESSAGES_;
     }));
 
@@ -112,6 +114,25 @@ describe('vendingApp', function() {
 
     });
 
+    describe('when message changes', function(){
+
+      it('should broadcast that a change has occured', function(){
+        spyOn($rootScope, '$broadcast');
+        MessageService.idle();
+        MessageService.idleLowCash();
+        MessageService.totalCredit(50);
+        MessageService.noMessage();
+        MessageService.notifyThankYou();
+        $timeout.flush();
+        MessageService.notifySoldOut(); //2 updates
+        $timeout.flush();
+        MessageService.notifyPrice(50); //2 updates
+        $timeout.flush();
+        expect($rootScope.$broadcast).toHaveBeenCalledTimes(9);
+      });
+
+    });
+
   });
-  
+
 });

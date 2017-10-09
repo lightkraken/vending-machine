@@ -2,24 +2,32 @@
 
 angular.module('vendingApp')
 
-.service('MessageService', ['MESSAGES', '$filter', '$timeout',
-  function (MESSAGES, $filter, $timeout, $q) {
+.service('MessageService', ['MESSAGES', 'BROADCASTS', '$rootScope', '$filter', '$timeout',
+  function (MESSAGES, BROADCASTS, $rootScope, $filter, $timeout, $q) {
     this.message = '';
+
+    var messageUpdated = function(){
+      $rootScope.$broadcast(BROADCASTS.MESSAGE);
+    };
 
     this.idle = function(){
       this.message = MESSAGES.INSERTCOIN;
+      messageUpdated();
     };
 
     this.idleLowCash = function(){
       this.message = MESSAGES.EXACTCHANGE;
+      messageUpdated();
     };
 
     this.totalCredit = function(total){
       this.message = $filter('centsToDollars')(total);
+      messageUpdated();
     };
 
     this.noMessage = function(){
       this.message = '';
+      messageUpdated();
     };
 
     var self = this;
@@ -36,10 +44,14 @@ angular.module('vendingApp')
       }
 
       self.message = newMessage;
+      messageUpdated();
 
       timer = $timeout(function(){
         notifying = false;
-        if (revert) {self.message = oldMessage;}
+        if (revert) {
+          self.message = oldMessage;
+          messageUpdated();
+        }
       }, 3000);
 
       return timer;

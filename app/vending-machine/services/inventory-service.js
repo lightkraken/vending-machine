@@ -2,8 +2,8 @@
 
 angular.module('vendingApp')
 
-.service('InventoryService', ['ITEMS',
-  function (ITEMS){
+.service('InventoryService', ['$rootScope', 'BROADCASTS', 'ITEMS',
+  function ($rootScope, BROADCASTS, ITEMS){
 
     var createItem = function(type, color){
       return {
@@ -35,6 +35,7 @@ angular.module('vendingApp')
       stockInventory(this.inventory[2][0], ITEMS.type.SODA, ITEMS.color.RED, _.random(max));
       stockInventory(this.inventory[2][1], ITEMS.type.SODA, ITEMS.color.BLUE, _.random(max));
       stockInventory(this.inventory[2][2], ITEMS.type.SODA, ITEMS.color.GREEN, _.random(max));
+      $rootScope.$broadcast(BROADCASTS.INVENTORY);
     };
 
     this.inStock = function(row, column){
@@ -46,7 +47,9 @@ angular.module('vendingApp')
     };
 
     this.retrieveItem = function(row, column){
-      return this.inventory[row][column].pop();
+      var item = this.inventory[row][column].pop();
+      $rootScope.$broadcast(BROADCASTS.INVENTORY);
+      return item;
     };
 
     this.getRowTotal = function(row) {
