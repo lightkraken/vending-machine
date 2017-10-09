@@ -41,6 +41,40 @@ describe('vendingApp', function() {
         spyOn(MessageService, 'noMessage');
       });
 
+      describe('with no stock at all', function(){
+
+        beforeEach(function(){
+          spyOn(InventoryService, 'getRowTotal').and.returnValue(0);
+          StateService.setIdle();
+        });
+
+        it('should blank the display', function(){
+          expect(MessageService.noMessage).toHaveBeenCalledTimes(1);
+        });
+
+        it('should disable the machine', function(){
+          expect(StateService.state).toEqual(STATES.DISABLED);
+        });
+
+      });
+
+      describe('wihtout nickels', function(){
+
+        it('should display EXACT CHANGE ONLY', function(){
+          spyOn(InventoryService, 'getRowTotal').and.returnValue(true);
+          spyOn(CashService, 'getCoinTotal').and.callFake(function(coin){
+            if (coin === COINS.NICKEL.label) {
+              return 0;
+            } else {
+              return _.random(1,10);
+            }
+          });
+          StateService.setIdle();
+          expect(MessageService.idleLowCash).toHaveBeenCalled();
+        });
+
+      });
+
       describe('with candy', function(){
 
         beforeEach(function(){
@@ -62,12 +96,14 @@ describe('vendingApp', function() {
 
         });
 
-        describe('and 1 or more dimes', function(){
+        describe('and (1 nickel) and (1 or more dimes)', function(){
 
           it('should display INSERT COIN', function(){
             spyOn(CashService, 'getCoinTotal').and.callFake(function(coin){
               if (coin === COINS.DIME.label) {
                 return _.random(1,10);
+              } else {
+                return 1;
               }
             });
             StateService.setIdle();
@@ -77,12 +113,12 @@ describe('vendingApp', function() {
 
         });
 
-        describe('and less than 2 nickels or less than 1 dime', function(){
+        describe('and (less than 2 nickels) and (no dimes)', function(){
 
           it('should display EXACT CHANGE ONLY', function(){
             spyOn(CashService, 'getCoinTotal').and.callFake(function(coin){
               if (coin === COINS.NICKEL.label) {
-                return _.random(0,1);
+                return 1;
               } else if (coin === COINS.DIME.label) {
                 return 0;
               } else {
@@ -97,68 +133,8 @@ describe('vendingApp', function() {
 
       });
 
-      describe('with no candy', function(){
-
-        beforeEach(function(){
-          spyOn(InventoryService, 'getRowTotal').and.callFake(function(row){
-            if (row !== 1) {
-              return true;
-            }
-          });
-        });
-
-        describe('and 1 or more nickels', function(){
-
-          it('should display INSERT COIN', function(){
-            spyOn(CashService, 'getCoinTotal').and.callFake(function(coin){
-              if (coin === COINS.NICKEL.label) {
-                return _.random(1,10);
-              }
-            });
-            StateService.setIdle();
-            expect(MessageService.idle).toHaveBeenCalledTimes(1);
-            expect(MessageService.idleLowCash).not.toHaveBeenCalled();
-          });
-
-        });
-
-        describe('and no nickels', function(){
-
-          it('should display EXACT CHANGE ONLY', function(){
-            spyOn(CashService, 'getCoinTotal').and.callFake(function(coin){
-              if (coin === COINS.NICKEL.label) {
-                return 0;
-              } else {
-                return _.random(1,10);
-              }
-            });
-            StateService.setIdle();
-            expect(MessageService.idleLowCash).toHaveBeenCalled();
-          });
-
-        });
-
-      });
-
-      describe('with no stock at all', function(){
-
-        beforeEach(function(){
-          spyOn(InventoryService, 'getRowTotal').and.returnValue(0);
-          StateService.setIdle();
-        });
-
-        it('should blank the display', function(){
-          expect(MessageService.noMessage).toHaveBeenCalledTimes(1);
-        });
-
-        it('should disable the machine', function(){
-          expect(StateService.state).toEqual(STATES.DISABLED);
-        });
-
-      });
-
     });
 
   });
-  
+
 });
