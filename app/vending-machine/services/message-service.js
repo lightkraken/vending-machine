@@ -52,7 +52,7 @@ angular.module('vendingApp')
           self.message = oldMessage;
           messageUpdated();
         }
-      }, 3000);
+      }, 2000);
 
       return timer;
     };

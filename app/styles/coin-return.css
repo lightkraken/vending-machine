@@ -1,0 +1,18 @@
+.coin-return {
+  position: absolute;
+  bottom: 44px;
+  right: 58px;
+
+  width: 82px;
+  height: 82px;
+  border: 2px solid white;
+  border-radius: 15px;
+
+  background-color: black;
+}
+
+.coin-return--glowing {
+  color: yellow;
+  cursor: pointer;
+  animation: door-glow 1s infinite alternate ease;
+}

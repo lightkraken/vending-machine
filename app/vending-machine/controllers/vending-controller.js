@@ -12,6 +12,7 @@ angular.module('vendingApp')
     $scope.returnedItems = OutputService.returnedItems;
     $scope.dispensedItems = OutputService.dispensedItems;
     $scope.message = MessageService.message;
+    $scope.hasInsertedCash = false;
 
     $scope.$on(BROADCASTS.INVENTORY, function(){
       $scope.inventory = InventoryService.inventory;
@@ -43,6 +44,7 @@ angular.module('vendingApp')
       } else {
         CashService.insertCoin(coinResult, coin);
         MessageService.totalCredit(CashService.getTotalCredit());
+        $scope.hasInsertedCash = true;
         return true;
       }
     };
@@ -75,6 +77,7 @@ angular.module('vendingApp')
     var refund = function(){
       OutputService.returnItems(CashService.refund());
       StateService.setIdle();
+      $scope.hasInsertedCash = false;
     };
     $scope.refund = function(){
       switch (StateService.state) {

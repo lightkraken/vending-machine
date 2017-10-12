@@ -1,0 +1,9 @@
+body {
+  color: white;
+  background-color: black;
+}
+
+@keyframes door-glow {
+  0% {box-shadow: 0px 0px 27px -8px inset;}
+  100% {box-shadow: 0px 0px 27px 0 inset;}
+}

@@ -1,0 +1,36 @@
+.refund-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 35px;
+  border: 2px solid;
+
+  color: rgb(127,127,127);
+  background-color: black;
+
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.refund-button--active {
+  color: #ffe9d2;
+  box-shadow: 0 0 6px 0px #ffbf00, 0 0 6px 0px #ffbf00 inset;
+}
+.refund-button--active:hover {
+  box-shadow: 0 0 6px 2px #ffbf00, 0 0 6px 0px #ffbf00 inset;
+}
+.refund-button--active:active {
+  box-shadow: 0 0 10px 3px #ffbf00, 0 0 6px 0px #ffbf00 inset;
+}
+
+  .refund-button__label {
+    padding: 2px 1px;
+    border: 2px solid;
+    border-left: 0;
+    border-right: 0;
+
+    font-size: 12px;
+    font-family: 'Share Tech Mono', monospace;
+
+    transform: rotate(-28deg);
+  }

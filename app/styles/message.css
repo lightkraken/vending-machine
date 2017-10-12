@@ -1,0 +1,17 @@
+.message {
+  display: flex;
+  align-items: center;
+  width: 176px;
+  height: 60px;
+  margin-top: 45px;
+  padding-left: 0.75em;
+  border: 2px solid white;
+  box-shadow: 0 0 6px #ffff00 inset;
+
+  color: white;
+  background-color: black;
+
+  font-size: 16px;
+  font-family: 'Share Tech Mono', monospace;
+  text-shadow: 0 0 20px #ffff00;
+}

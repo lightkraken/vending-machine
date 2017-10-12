@@ -1,0 +1,29 @@
+.dispenser {
+  position: absolute;
+  left: 76px;
+  bottom: 44px;
+
+  width: 288px;
+  height: 82px;
+  border: 2px solid white;
+  border-radius: 15px;
+
+  background-color: black;
+}
+
+.dispenser__door--active {
+  cursor: pointer;
+  animation: door-glow 1s infinite alternate ease;
+}
+
+.dispenser__door--active--red {
+  color: #fe0002;
+}
+
+.dispenser__door--active--blue {
+  color: #17f9fe;
+}
+
+.dispenser__door--active--green {
+  color: #5bf501;
+}

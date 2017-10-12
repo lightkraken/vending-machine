@@ -1,0 +1,42 @@
+.machine {
+  display: inline-flex;
+  height: 608px;
+  border: 2px solid white;
+
+  background: repeating-linear-gradient(-45deg, rgba(255,255,255,0.2), rgba(255,255,255,0.2) 1px, black 1px, black 6px);
+}
+
+  .machine__left {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 440px;
+    border-right: 2px solid white;
+  }
+
+  .machine__right {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+  }
+
+.coin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 94px;
+  margin-top: 20px;
+}
+
+.coin-slot {
+  width: 6px;
+  height: 45px;
+  border: 2px solid white;
+
+  background-color: black;
+}

@@ -20,8 +20,9 @@ describe('vendingApp', function() {
     describe('stocking inventory', function(){
 
       it('should stock the inventory with a random amount of items', function(){
-        var min = 0;
-        var max = 5;
+        var min = 1;
+        var max = 3;
+        var sodaMax = 2;
         InventoryService.stockRandomInventory();
         expect((InventoryService.inventory[0][0].length >= min) &&
                (InventoryService.inventory[0][0].length <= max)).toBe(true);
@@ -36,11 +37,11 @@ describe('vendingApp', function() {
         expect((InventoryService.inventory[1][2].length >= min) &&
                (InventoryService.inventory[1][2].length <= max)).toBe(true);
         expect((InventoryService.inventory[2][0].length >= min) &&
-               (InventoryService.inventory[2][0].length <= max)).toBe(true);
+               (InventoryService.inventory[2][0].length <= sodaMax)).toBe(true);
         expect((InventoryService.inventory[2][1].length >= min) &&
-               (InventoryService.inventory[2][1].length <= max)).toBe(true);
+               (InventoryService.inventory[2][1].length <= sodaMax)).toBe(true);
         expect((InventoryService.inventory[2][2].length >= min) &&
-               (InventoryService.inventory[2][2].length <= max)).toBe(true);
+               (InventoryService.inventory[2][2].length <= sodaMax)).toBe(true);
       });
 
     });

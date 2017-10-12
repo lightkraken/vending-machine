@@ -98,6 +98,12 @@ describe('app module', function() {
             expect(CashService.getTotalCredit()).toEqual(5);
           });
 
+          it('should make the refund button active', function(){
+            expect($scope.hasInsertedCash).toBe(false);
+            $scope.insertCoin(COINS.NICKEL);
+            expect($scope.hasInsertedCash).toBe(true);
+          });
+
           it('should transition the vending machine to the money state', function(){
             expect(StateService.state).toEqual(STATES.IDLE);
             $scope.insertCoin(COINS.NICKEL);
@@ -206,6 +212,12 @@ describe('app module', function() {
           $scope.refund();
           $scope.$digest();
           expect($scope.returnedItems).toEqual([COINS.QUARTER]);
+        });
+
+        it('should make the refund button inactive', function(){
+          expect($scope.hasInsertedCash).toBe(true);
+          $scope.refund();
+          expect($scope.hasInsertedCash).toBe(false);
         });
 
         it('should transition the vending machine to the idle state', function(){

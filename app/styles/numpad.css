@@ -1,0 +1,71 @@
+.numpad {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 140px;
+  width: 130px;
+  padding: 6px;
+  margin-top: 20px;
+  border: 2px solid white;
+
+  background-color: black;
+}
+  .numpad__row {
+    display: flex;
+    justify-content: space-around;
+    margin: 4px 0;
+  }
+
+  .numpad__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    border: 2px solid white;
+    border-radius: 50%;
+
+    color: white;
+
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+  }
+  .numpad__button--red {
+    border-color: #fddad6;
+    box-shadow: 0 0 10px 0px #fe0002, 0 0 10px 0px #fe0002 inset;
+  }
+  .numpad__button--red:hover {
+    box-shadow: 0 0 10px 3px #fe0002, 0 0 10px 0px #fe0002 inset;
+  }
+  .numpad__button--red:active {
+    box-shadow: 0 0 10px 5px #fe0002, 0 0 10px 0px #fe0002 inset;
+  }
+
+  .numpad__button--blue {
+    border-color: #ebfffe;
+    box-shadow: 0 0 10px 0px #17f9fe, 0 0 10px 0px #17f9fe inset;
+  }
+  .numpad__button--blue:hover {
+    box-shadow: 0 0 10px 3px #17f9fe, 0 0 10px 0px #17f9fe inset;
+  }
+  .numpad__button--blue:active {
+    box-shadow: 0 0 10px 5px #17f9fe, 0 0 10px 0px #17f9fe inset;
+  }
+
+  .numpad__button--green {
+    border-color: #fdfedc;
+    box-shadow: 0 0 10px 0px #5bf501, 0 0 10px 0px #5bf501 inset;
+  }
+  .numpad__button--green:hover {
+    box-shadow: 0 0 10px 3px #5bf501, 0 0 10px 0px #5bf501 inset;
+  }
+  .numpad__button--green:active {
+    box-shadow: 0 0 10px 5px #5bf501, 0 0 10px 0px #5bf501 inset;
+  }
+
+  .numpad__button--disabled {
+    box-shadow: none;
+    opacity: 0.5;
+  }
