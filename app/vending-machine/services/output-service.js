@@ -17,7 +17,7 @@ angular.module('vendingApp')
     };
 
     this.dispenseItem = function(item) {
-      this.dispensedItems.push(item);
+      this.dispensedItems.unshift(item);
       $rootScope.$broadcast(BROADCASTS.DISPENSED);
     };
 }]);

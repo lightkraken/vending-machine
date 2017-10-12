@@ -23,25 +23,25 @@
 }
 .item--candy-0 {
   bottom: 0;
-  z-index: 25;
+  z-index: 24;
 }
 .item--candy-1 {
   bottom: 20px;
-  z-index: 20;
+  z-index: 19;
   transform: scale(0.85);
 }
 .item--candy-2 {
   bottom: 40px;
-  z-index: 15;
+  z-index: 14;
   transform: scale(0.70);
 }
 .item--soda-0 {
   bottom: 0;
-  z-index: 25;
+  z-index: 23;
 }
 .item--soda-1 {
   bottom: 37px;
-  z-index: 20;
+  z-index: 18;
   transform: scale(0.8);
 }
 
@@ -56,4 +56,71 @@
   }
   .item__image--candy {
     height: 62px;
+  }
+
+.fall-chips {
+  animation: fall-chips 0.25s linear;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.fall-candy {
+  animation: fall-candy 0.25s linear;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.fall-soda {
+  animation: fall-soda 0.25s linear;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fall-soda {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -150px;
+  }
+}
+
+@keyframes fall-candy {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -235px;
+  }
+}
+
+@keyframes fall-chips {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -395px;
+  }
+}
+
+.shake {
+  transform-origin: center center;
+  animation-name: shake;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes shake {
+  17% {
+    transform: translate(0px, -3px) rotate(3.5deg); }
+  34% {
+    transform: translate(-9px, -3px) rotate(0.5deg); }
+  51% {
+    transform: translate(-7px, 4px) rotate(-0.5deg); }
+  68% {
+    transform: translate(7px, 5px) rotate(2.5deg); }
+  85% {
+    transform: translate(-1px, -3px) rotate(-1.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); }
   }

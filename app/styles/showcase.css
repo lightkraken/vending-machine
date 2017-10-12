@@ -5,6 +5,8 @@
   border-bottom: 0;
 
   background-color: black;
+
+  overflow: hidden;
 }
 
   .showcase__row {

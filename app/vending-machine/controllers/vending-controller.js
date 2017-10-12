@@ -110,17 +110,14 @@ angular.module('vendingApp')
     };
     var moneyChooseItem = function(row, column){
       if (chooseItem(row, column)) {
-        if (CashService.getTotalCredit() >= PRICES[row]) {
+        if(CashService.getTotalCredit() < PRICES[row]) {
+          MessageService.notifyPrice(PRICES[row]);
+        } else {
           var change = CashService.pay(PRICES[row]);
           if (change) {
             OutputService.returnItems(change);
           }
-          OutputService.dispenseItem(InventoryService.retrieveItem(row, column));
-          $scope.hasInsertedCash = false;
-          StateService.setDisabled();
-          MessageService.notifyThankYou().then(StateService.setIdle);
-        } else {
-          MessageService.notifyPrice(PRICES[row]);
+          dispenseItem(row,column);
         }
       }
     };
@@ -178,6 +175,27 @@ angular.module('vendingApp')
       refreshBank();
       $(ui.target).remove();
     };
-    
+
+    //------------------------------------\\
+    //  DISPENSING
+    //------------------------------------\\
+
+    var dispenseItem = function(row, column){
+      $scope.dispensing[row][column][0] = true;
+      $scope.hasInsertedCash = false;
+      StateService.setDisabled();
+      MessageService.notifyThankYou().then(function(){
+        $scope.dispensing[row][column][0] = false;
+        OutputService.dispenseItem(InventoryService.retrieveItem(row, column));
+        StateService.setIdle();
+      });
+    };
+
+    $scope.dispensing =  [
+          [ [false],[false],[false] ],
+          [ [false],[false],[false] ],
+          [ [false],[false],[false] ]
+    ];
+
   }
 ]);

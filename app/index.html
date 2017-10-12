@@ -29,18 +29,24 @@
       <div class="showcase">
         <div class="showcase__row showcase__row--chips">
           <div class="showcase__column">
-            <div ng-repeat="item in inventory[0][0]" class="item item--chips-{{$index}}">
-              <img class="item__image item__image--chips" src="images/chips1.png">
+            <div ng-repeat="item in inventory[0][0]" class="item item--chips-{{$index}}"
+                 ng-class="{'fall-chips': dispensing[0][0][$index]}">
+              <img class="item__image item__image--chips" src="images/chips1.png"
+                   ng-class="{'shake': dispensing[0][0][$index]}">
             </div>
           </div>
           <div class="showcase__column">
-            <div ng-repeat="item in inventory[0][1]" class="item item--chips-{{$index}}">
-              <img class="item__image item__image--chips" src="images/chips2.png">
+            <div ng-repeat="item in inventory[0][1]" class="item item--chips-{{$index}}"
+                 ng-class="{'fall-chips': dispensing[0][1][$index]}">
+              <img class="item__image item__image--chips" src="images/chips2.png"
+                   ng-class="{'shake': dispensing[0][1][$index]}">
             </div>
           </div>
           <div class="showcase__column">
-            <div ng-repeat="item in inventory[0][2]" class="item item--chips-{{$index}}">
-              <img class="item__image item__image--chips" src="images/chips3.png">
+            <div ng-repeat="item in inventory[0][2]" class="item item--chips-{{$index}}"
+                 ng-class="{'fall-chips': dispensing[0][2][$index]}">
+              <img class="item__image item__image--chips" src="images/chips3.png"
+                   ng-class="{'shake': dispensing[0][2][$index]}">
             </div>
           </div>
         </div>
@@ -60,18 +66,24 @@
         </div>
         <div class="showcase__row showcase__row--candy">
           <div class="showcase__column">
-            <div ng-repeat="item in inventory[1][0]" class="item item--candy-{{$index}}">
-              <img class="item__image item__image--candy" src="images/candy1.png">
+            <div ng-repeat="item in inventory[1][0]" class="item item--candy-{{$index}}"
+                 ng-class="{'fall-candy': dispensing[1][0][$index]}">
+              <img class="item__image item__image--candy" src="images/candy1.png"
+                   ng-class="{'shake': dispensing[1][0][$index]}">
             </div>
           </div>
           <div class="showcase__column">
-            <div ng-repeat="item in inventory[1][1]" class="item item--candy-{{$index}}">
-              <img class="item__image item__image--candy" src="images/candy2.png">
+            <div ng-repeat="item in inventory[1][1]" class="item item--candy-{{$index}}"
+                 ng-class="{'fall-candy': dispensing[1][1][$index]}">
+              <img class="item__image item__image--candy" src="images/candy2.png"
+                 ng-class="{'shake': dispensing[1][1][$index]}">
             </div>
           </div>
           <div class="showcase__column">
-            <div ng-repeat="item in inventory[1][2]" class="item item--candy-{{$index}}">
-              <img class="item__image item__image--candy" src="images/candy3.png">
+            <div ng-repeat="item in inventory[1][2]" class="item item--candy-{{$index}}"
+                 ng-class="{'fall-candy': dispensing[1][2][$index]}">
+              <img class="item__image item__image--candy" src="images/candy3.png"
+                   ng-class="{'shake': dispensing[1][2][$index]}">
             </div>
           </div>
         </div>
@@ -91,18 +103,24 @@
         </div>
         <div class="showcase__row showcase__row--soda">
           <div class="showcase__column">
-            <div ng-repeat="item in inventory[2][0]" class="item item--soda-{{$index}}">
-              <img class="item__image item__image--soda" src="images/soda1.png">
+            <div ng-repeat="item in inventory[2][0]" class="item item--soda-{{$index}}"
+                 ng-class="{'fall-soda': dispensing[2][0][$index]}">
+              <img class="item__image item__image--soda" src="images/soda1.png"
+                   ng-class="{'shake': dispensing[2][0][$index]}">
             </div>
           </div>
           <div class="showcase__column">
-            <div ng-repeat="item in inventory[2][1]" class="item item--soda-{{$index}}">
-              <img class="item__image item__image--soda" src="images/soda2.png">
+            <div ng-repeat="item in inventory[2][1]" class="item item--soda-{{$index}}"
+                 ng-class="{'fall-soda': dispensing[2][1][$index]}">
+              <img class="item__image item__image--soda" src="images/soda2.png"
+                   ng-class="{'shake': dispensing[2][1][$index]}">
             </div>
           </div>
           <div class="showcase__column">
-            <div ng-repeat="item in inventory[2][2]" class="item item--soda-{{$index}}">
-              <img class="item__image item__image--soda" src="images/soda3.png">
+            <div ng-repeat="item in inventory[2][2]" class="item item--soda-{{$index}}"
+                 ng-class="{'fall-soda': dispensing[2][2][$index]}">
+              <img class="item__image item__image--soda" src="images/soda3.png"
+                   ng-class="{'shake': dispensing[2][2][$index]}">
             </div>
           </div>
         </div>

@@ -45,7 +45,7 @@ describe('vendingApp', function() {
         OutputService.dispenseItem(item);
         expect(OutputService.dispensedItems).toEqual([item]);
         OutputService.dispenseItem(otherItem);
-        expect(OutputService.dispensedItems).toEqual([item,otherItem]);
+        expect(OutputService.dispensedItems).toEqual([otherItem,item]);
       });
 
     });
@@ -55,7 +55,7 @@ describe('vendingApp', function() {
         spyOn($rootScope, '$broadcast');
         OutputService.returnItems('item');
         OutputService.dispenseItem('item');
-        expect($rootScope.$broadcast).toHaveBeenCalledTimes(2);        
+        expect($rootScope.$broadcast).toHaveBeenCalledTimes(2);
       });
 
     });

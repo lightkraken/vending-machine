@@ -290,6 +290,7 @@ describe('app module', function() {
             it('should dispense the item', function(){
               $scope.chooseItem(0,0);
               $scope.$digest();
+              $timeout.flush();
               expect($scope.dispensedItems).toEqual([mockItem]);
             });
 
