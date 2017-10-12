@@ -1,6 +1,7 @@
 body {
-  color: white;
+  display: flex;
   background-color: black;
+  justify-content: center;
 }
 
 @keyframes door-glow {

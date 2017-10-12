@@ -11,6 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
   <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/bank.css">
   <link rel="stylesheet" href="styles/coin-return.css">
   <link rel="stylesheet" href="styles/dispenser.css">
   <link rel="stylesheet" href="styles/item.css">
@@ -184,14 +185,52 @@
         <div class="refund-button" ng-class="{'refund-button--active': hasInsertedCash}" ng-click="refund()">
           <div class="refund-button__label">REFUND</div>
         </div>
-        <div class="coin-slot"></div>
+        <div class="coin-slot">
+          <div class="coin-slot__drop-target" data-drop="true" ng-model="slotContents"
+               jqyoui-droppable="droppableOptions"
+               class="coin-slot">
+          </div>
+        </div>
       </div>
       <div class="coin-return" ng-class="{'coin-return--glowing': returnedItems.length}"></div>
     </div>
   </div>
+  <div class="bank">
+    <div class="coinstack">
+      <img class="coinstack__image coinstack__image--nickels" src="images/nickels.svg">
+      <div class="coinstack__label">NICKELS</div>
+      <div data-drag="true" jqyoui-draggable="draggableOptions"
+           ng-model="freeNickels" data-jqyoui-options="dragDropOptions"
+           class="coin coin--nickel coin--hidden">
+        <img class="coin__image coin__image--nickel" src="images/coin1.png">
+      </div>
+    </div>
+    <div class="coinstack">
+      <img class="coinstack__image coinstack__image--dimes" src="images/dimes.svg">
+      <div class="coinstack__label">DIMES</div>
+      <div data-drag="true" jqyoui-draggable="draggableOptions"
+           ng-model="freeDimes" data-jqyoui-options="dragDropOptions"
+           class="coin coin--dime coin--hidden">
+        <img class="coin__image coin__image--dime" src="images/coin2.png">
+      </div>
+    </div>
+    <div class="coinstack">
+      <img class="coinstack__image coinstack__image--quarters" src="images/quarters.svg">
+      <div class="coinstack__label">QUARTERS</div>
+      <div data-drag="true" jqyoui-draggable="draggableOptions"
+           ng-model="freeQuarters" data-jqyoui-options="dragDropOptions"
+          class="coin coin--dime coin--hidden">
+        <img class="coin__image coin__image--quarter" src="images/coin2.png">
+      </div>
+    </div>
+    <div class="bank__instructions">drag the coins!</div>
+  </div>
 
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/lodash/lodash.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+  <script src="bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
   <script src="app.js"></script>
   <script src="vending-machine/modules/vending-module.js"></script>
   <script src="vending-machine/services/cash-service.js"></script>

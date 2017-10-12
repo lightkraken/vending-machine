@@ -34,9 +34,19 @@
 }
 
 .coin-slot {
+  position: relative;
+
   width: 6px;
-  height: 45px;
+  height: 65px;
   border: 2px solid white;
 
   background-color: black;
+}
+
+.coin-slot__drop-target {
+  position: absolute;
+  left: -27px;
+
+  width: 60px;
+  height: 65px;
 }

@@ -6,13 +6,33 @@ describe('vendingApp', function() {
 
   describe('CashService', function(){
     var CashService;
+    var CoinValidatorService;
     var COINS;
     var change;
 
-    beforeEach(inject(function (_CashService_, _COINS_) {
+    beforeEach(inject(function (_CashService_, _CoinValidatorService_, _COINS_) {
       CashService = _CashService_;
+      CoinValidatorService = _CoinValidatorService_;
       COINS = _COINS_;
     }));
+
+    describe('creating coins', function(){
+      it('should create dimes', function(){
+        expect(
+          CoinValidatorService.validateCoin(
+            CashService.createCoins(COINS.DIME, 1)[0])).toEqual(COINS.DIME.label);
+      });
+      it('should create nickels', function(){
+        expect(
+          CoinValidatorService.validateCoin(
+            CashService.createCoins(COINS.NICKEL, 1)[0])).toEqual(COINS.NICKEL.label);
+      });
+      it('should create quarters', function(){
+        expect(
+          CoinValidatorService.validateCoin(
+            CashService.createCoins(COINS.QUARTER, 1)[0])).toEqual(COINS.QUARTER.label);
+      });
+    });
 
     describe('stocking cash bank', function(){
       it('should stock the cash bank with a random amount of coins', function(){

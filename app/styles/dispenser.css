@@ -11,19 +11,19 @@
   background-color: black;
 }
 
-.dispenser__door--active {
+.dispenser--active {
   cursor: pointer;
-  animation: door-glow 1s infinite alternate ease;
+  animation: door-glow 0.75s infinite alternate ease;
 }
 
-.dispenser__door--active--red {
+.dispenser--active--red {
   color: #fe0002;
 }
 
-.dispenser__door--active--blue {
+.dispenser--active--blue {
   color: #17f9fe;
 }
 
-.dispenser__door--active--green {
+.dispenser--active--green {
   color: #5bf501;
 }

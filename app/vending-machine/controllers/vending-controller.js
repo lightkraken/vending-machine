@@ -116,6 +116,7 @@ angular.module('vendingApp')
             OutputService.returnItems(change);
           }
           OutputService.dispenseItem(InventoryService.retrieveItem(row, column));
+          $scope.hasInsertedCash = false;
           StateService.setDisabled();
           MessageService.notifyThankYou().then(StateService.setIdle);
         } else {
@@ -135,5 +136,48 @@ angular.module('vendingApp')
           break;
       }
     };
+
+    //------------------------------------\\
+    //  COIN DRAG AND DROP
+    //------------------------------------\\
+
+    $scope.draggableOptions = {
+      onStart: 'coinStartDrag',
+      onStop: 'coinStopDrag',
+      index: 0
+    };
+
+    $scope.droppableOptions = {
+      onDrop: 'slotOnDrop',
+      tolerance: 'intersect'
+    };
+
+    $scope.dragDropOptions = {
+      revert: 'invalid'
+    };
+
+    $scope.slotContents = [];
+
+    var refreshBank = function(){
+      $scope.freeNickels = CashService.createCoins(COINS.NICKEL, 1);
+      $scope.freeDimes = CashService.createCoins(COINS.DIME, 1);
+      $scope.freeQuarters = CashService.createCoins(COINS.QUARTER, 1);
+    };
+    refreshBank();
+
+    $scope.coinStartDrag = function(event){
+      $(event.target).removeClass('coin--hidden');
+    };
+
+    $scope.coinStopDrag = function(event){
+      $(event.target).addClass('coin--hidden');
+    };
+
+    $scope.slotOnDrop = function(event, ui){
+      $scope.insertCoin($scope.slotContents.pop());
+      refreshBank();
+      $(ui.target).remove();
+    };
+    
   }
 ]);

@@ -1,0 +1,100 @@
+.bank {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex-shrink: 0;
+  width: 150px;
+  height: 400px;
+  padding: 10px 0;
+  margin-left: 60px;
+  border: 2px solid white;
+
+  background-color: black;
+}
+
+  .bank__instructions {
+    position: absolute;
+    bottom: -26px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 22px;
+    border: 2px solid white;
+    border-top: 0;
+
+    color: white;
+    background-color: black;
+
+    font-size: 14px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+.coinstack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+  .coinstack__image {
+    display: block;
+  }
+  .coinstack__image--nickels{
+    height: 80px;
+  }
+  .coinstack__image--dimes{
+    height: 60px;
+  }
+  .coinstack__image--quarters{
+    height: 70px;
+  }
+
+  .coinstack__label {
+    margin-top: 0.5em;
+    color: white;
+    font-size: 16px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+.coin {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: opacity 0.2s;
+}
+.coin--nickel {
+  width: 62px;
+  height: 80px;
+}
+.coin--dime {
+  width: 58px;
+  height: 60px;
+}
+.coin--quarter {
+  width: 73px;
+  height: 70px;
+}
+.coin--hidden {
+  opacity: 0;
+  transition: none;
+}
+
+  .coin__image {
+    display: block;
+  }
+  .coin__image--nickel {
+    height: 70px;
+  }
+  .coin__image--dime {
+    height: 60px;
+  }
+  .coin__image--quarter {
+    height: 80px;
+  }

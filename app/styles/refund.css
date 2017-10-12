@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
-  height: 35px;
+  width: 50px;
+  height: 40px;
   border: 2px solid;
 
   color: rgb(127,127,127);
@@ -24,12 +24,12 @@
 }
 
   .refund-button__label {
-    padding: 2px 1px;
+    padding: 2px 2px;
     border: 2px solid;
     border-left: 0;
     border-right: 0;
 
-    font-size: 12px;
+    font-size: 13px;
     font-family: 'Share Tech Mono', monospace;
 
     transform: rotate(-28deg);

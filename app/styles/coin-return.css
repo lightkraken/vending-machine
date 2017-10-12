@@ -14,5 +14,5 @@
 .coin-return--glowing {
   color: yellow;
   cursor: pointer;
-  animation: door-glow 1s infinite alternate ease;
+  animation: door-glow 0.75s infinite alternate ease;
 }
