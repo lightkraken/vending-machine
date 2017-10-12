@@ -4,6 +4,27 @@ body {
   justify-content: center;
 }
 
+.background-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+}
+
+.video-overlay {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -80;
+  background-color: rgba(0,0,0,0.5);
+}
+
 @keyframes door-glow {
   0% {box-shadow: 0px 0px 27px -8px inset;}
   100% {box-shadow: 0px 0px 27px 0 inset;}
