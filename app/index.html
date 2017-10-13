@@ -6,8 +6,10 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
+  <title>Vending Machine</title>
   <meta name="description" content="">
+  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32"/>
+  <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
   <link rel="stylesheet" href="styles/common.css">
@@ -24,228 +26,230 @@
 <body>
   <video class="background-video" src="videos/space.mp4" playsinline autoplay muted loop></video>
   <div class="video-overlay"></div>
-  <div class="machine">
-    <div class="machine__left">
-      <div class="showcase">
-        <div class="showcase__row showcase__row--chips">
-          <div class="showcase__column">
-            <div ng-repeat="item in inventory[0][0]" class="item item--chips-{{$index}}"
-                 ng-class="{'fall-chips': dispensing[0][0][$index]}">
-              <img class="item__image item__image--chips" src="images/chips1.png"
-                   ng-class="{'shake': dispensing[0][0][$index]}">
+  <div ng-cloak class="machine-container">
+    <div class="machine">
+      <div class="machine__left">
+        <div class="showcase">
+          <div class="showcase__row showcase__row--chips">
+            <div class="showcase__column">
+              <div ng-repeat="item in inventory[0][0]" class="item item--chips-{{$index}}"
+                   ng-class="{'fall-chips': dispensing[0][0][$index]}">
+                <img class="item__image item__image--chips" src="images/chips1.png"
+                     ng-class="{'shake': dispensing[0][0][$index]}">
+              </div>
+            </div>
+            <div class="showcase__column">
+              <div ng-repeat="item in inventory[0][1]" class="item item--chips-{{$index}}"
+                   ng-class="{'fall-chips': dispensing[0][1][$index]}">
+                <img class="item__image item__image--chips" src="images/chips2.png"
+                     ng-class="{'shake': dispensing[0][1][$index]}">
+              </div>
+            </div>
+            <div class="showcase__column">
+              <div ng-repeat="item in inventory[0][2]" class="item item--chips-{{$index}}"
+                   ng-class="{'fall-chips': dispensing[0][2][$index]}">
+                <img class="item__image item__image--chips" src="images/chips3.png"
+                     ng-class="{'shake': dispensing[0][2][$index]}">
+              </div>
             </div>
           </div>
-          <div class="showcase__column">
-            <div ng-repeat="item in inventory[0][1]" class="item item--chips-{{$index}}"
-                 ng-class="{'fall-chips': dispensing[0][1][$index]}">
-              <img class="item__image item__image--chips" src="images/chips2.png"
-                   ng-class="{'shake': dispensing[0][1][$index]}">
+          <div class="showcase__shelf">
+            <div class="shelf-label">
+              <div class="shelf-label__id">A1</div>
+              <div class="shelf-label__price">0.50</div>
+            </div>
+            <div class="shelf-label">
+              <div class="shelf-label__id">A2</div>
+              <div class="shelf-label__price">0.50</div>
+            </div>
+            <div class="shelf-label">
+              <div class="shelf-label__id">A3</div>
+              <div class="shelf-label__price">0.50</div>
             </div>
           </div>
-          <div class="showcase__column">
-            <div ng-repeat="item in inventory[0][2]" class="item item--chips-{{$index}}"
-                 ng-class="{'fall-chips': dispensing[0][2][$index]}">
-              <img class="item__image item__image--chips" src="images/chips3.png"
-                   ng-class="{'shake': dispensing[0][2][$index]}">
+          <div class="showcase__row showcase__row--candy">
+            <div class="showcase__column">
+              <div ng-repeat="item in inventory[1][0]" class="item item--candy-{{$index}}"
+                   ng-class="{'fall-candy': dispensing[1][0][$index]}">
+                <img class="item__image item__image--candy" src="images/candy1.png"
+                     ng-class="{'shake': dispensing[1][0][$index]}">
+              </div>
+            </div>
+            <div class="showcase__column">
+              <div ng-repeat="item in inventory[1][1]" class="item item--candy-{{$index}}"
+                   ng-class="{'fall-candy': dispensing[1][1][$index]}">
+                <img class="item__image item__image--candy" src="images/candy2.png"
+                   ng-class="{'shake': dispensing[1][1][$index]}">
+              </div>
+            </div>
+            <div class="showcase__column">
+              <div ng-repeat="item in inventory[1][2]" class="item item--candy-{{$index}}"
+                   ng-class="{'fall-candy': dispensing[1][2][$index]}">
+                <img class="item__image item__image--candy" src="images/candy3.png"
+                     ng-class="{'shake': dispensing[1][2][$index]}">
+              </div>
+            </div>
+          </div>
+          <div class="showcase__shelf">
+            <div class="shelf-label">
+              <div class="shelf-label__id">B1</div>
+              <div class="shelf-label__price">0.65</div>
+            </div>
+            <div class="shelf-label">
+              <div class="shelf-label__id">B2</div>
+              <div class="shelf-label__price">0.65</div>
+            </div>
+            <div class="shelf-label">
+              <div class="shelf-label__id">B3</div>
+              <div class="shelf-label__price">0.65</div>
+            </div>
+          </div>
+          <div class="showcase__row showcase__row--soda">
+            <div class="showcase__column">
+              <div ng-repeat="item in inventory[2][0]" class="item item--soda-{{$index}}"
+                   ng-class="{'fall-soda': dispensing[2][0][$index]}">
+                <img class="item__image item__image--soda" src="images/soda1.png"
+                     ng-class="{'shake': dispensing[2][0][$index]}">
+              </div>
+            </div>
+            <div class="showcase__column">
+              <div ng-repeat="item in inventory[2][1]" class="item item--soda-{{$index}}"
+                   ng-class="{'fall-soda': dispensing[2][1][$index]}">
+                <img class="item__image item__image--soda" src="images/soda2.png"
+                     ng-class="{'shake': dispensing[2][1][$index]}">
+              </div>
+            </div>
+            <div class="showcase__column">
+              <div ng-repeat="item in inventory[2][2]" class="item item--soda-{{$index}}"
+                   ng-class="{'fall-soda': dispensing[2][2][$index]}">
+                <img class="item__image item__image--soda" src="images/soda3.png"
+                     ng-class="{'shake': dispensing[2][2][$index]}">
+              </div>
+            </div>
+          </div>
+          <div class="showcase__shelf">
+            <div class="shelf-label">
+              <div class="shelf-label__id">C1</div>
+              <div class="shelf-label__price">1.00</div>
+            </div>
+            <div class="shelf-label">
+              <div class="shelf-label__id">C2</div>
+              <div class="shelf-label__price">1.00</div>
+            </div>
+            <div class="shelf-label">
+              <div class="shelf-label__id">C3</div>
+              <div class="shelf-label__price">1.00</div>
             </div>
           </div>
         </div>
-        <div class="showcase__shelf">
-          <div class="shelf-label">
-            <div class="shelf-label__id">A1</div>
-            <div class="shelf-label__price">0.50</div>
-          </div>
-          <div class="shelf-label">
-            <div class="shelf-label__id">A2</div>
-            <div class="shelf-label__price">0.50</div>
-          </div>
-          <div class="shelf-label">
-            <div class="shelf-label__id">A3</div>
-            <div class="shelf-label__price">0.50</div>
-          </div>
-        </div>
-        <div class="showcase__row showcase__row--candy">
-          <div class="showcase__column">
-            <div ng-repeat="item in inventory[1][0]" class="item item--candy-{{$index}}"
-                 ng-class="{'fall-candy': dispensing[1][0][$index]}">
-              <img class="item__image item__image--candy" src="images/candy1.png"
-                   ng-class="{'shake': dispensing[1][0][$index]}">
-            </div>
-          </div>
-          <div class="showcase__column">
-            <div ng-repeat="item in inventory[1][1]" class="item item--candy-{{$index}}"
-                 ng-class="{'fall-candy': dispensing[1][1][$index]}">
-              <img class="item__image item__image--candy" src="images/candy2.png"
-                 ng-class="{'shake': dispensing[1][1][$index]}">
-            </div>
-          </div>
-          <div class="showcase__column">
-            <div ng-repeat="item in inventory[1][2]" class="item item--candy-{{$index}}"
-                 ng-class="{'fall-candy': dispensing[1][2][$index]}">
-              <img class="item__image item__image--candy" src="images/candy3.png"
-                   ng-class="{'shake': dispensing[1][2][$index]}">
-            </div>
-          </div>
-        </div>
-        <div class="showcase__shelf">
-          <div class="shelf-label">
-            <div class="shelf-label__id">B1</div>
-            <div class="shelf-label__price">0.65</div>
-          </div>
-          <div class="shelf-label">
-            <div class="shelf-label__id">B2</div>
-            <div class="shelf-label__price">0.65</div>
-          </div>
-          <div class="shelf-label">
-            <div class="shelf-label__id">B3</div>
-            <div class="shelf-label__price">0.65</div>
-          </div>
-        </div>
-        <div class="showcase__row showcase__row--soda">
-          <div class="showcase__column">
-            <div ng-repeat="item in inventory[2][0]" class="item item--soda-{{$index}}"
-                 ng-class="{'fall-soda': dispensing[2][0][$index]}">
-              <img class="item__image item__image--soda" src="images/soda1.png"
-                   ng-class="{'shake': dispensing[2][0][$index]}">
-            </div>
-          </div>
-          <div class="showcase__column">
-            <div ng-repeat="item in inventory[2][1]" class="item item--soda-{{$index}}"
-                 ng-class="{'fall-soda': dispensing[2][1][$index]}">
-              <img class="item__image item__image--soda" src="images/soda2.png"
-                   ng-class="{'shake': dispensing[2][1][$index]}">
-            </div>
-          </div>
-          <div class="showcase__column">
-            <div ng-repeat="item in inventory[2][2]" class="item item--soda-{{$index}}"
-                 ng-class="{'fall-soda': dispensing[2][2][$index]}">
-              <img class="item__image item__image--soda" src="images/soda3.png"
-                   ng-class="{'shake': dispensing[2][2][$index]}">
-            </div>
-          </div>
-        </div>
-        <div class="showcase__shelf">
-          <div class="shelf-label">
-            <div class="shelf-label__id">C1</div>
-            <div class="shelf-label__price">1.00</div>
-          </div>
-          <div class="shelf-label">
-            <div class="shelf-label__id">C2</div>
-            <div class="shelf-label__price">1.00</div>
-          </div>
-          <div class="shelf-label">
-            <div class="shelf-label__id">C3</div>
-            <div class="shelf-label__price">1.00</div>
-          </div>
+        <div class="dispenser" ng-class="{
+             'dispenser--active': dispensedItems.length,
+             'dispenser--active--red': dispensedItems[0].color === 'red',
+             'dispenser--active--blue': dispensedItems[0].color === 'blue',
+             'dispenser--active--green': dispensedItems[0].color === 'green'}"
+             ng-click="showDispensedItem($event)">
         </div>
       </div>
-      <div class="dispenser" ng-class="{
-           'dispenser--active': dispensedItems.length,
-           'dispenser--active--red': dispensedItems[0].color === 'red',
-           'dispenser--active--blue': dispensedItems[0].color === 'blue',
-           'dispenser--active--green': dispensedItems[0].color === 'green'}"
-           ng-click="showDispensedItem($event)">
-      </div>
-    </div>
-    <div class="machine__right">
-      <div class="message">{{message}}</div>
-      <div class="numpad">
-        <div class="numpad__row">
-          <div class="numpad__button numpad__button--red"
-               ng-class="{'numpad__button--disabled': !inventory[0][0].length}"
-               ng-click="chooseItem(0,0)">
-               A1
+      <div class="machine__right">
+        <div class="message">{{message}}</div>
+        <div class="numpad">
+          <div class="numpad__row">
+            <div class="numpad__button numpad__button--red"
+                 ng-class="{'numpad__button--disabled': !inventory[0][0].length}"
+                 ng-click="chooseItem(0,0)">
+                 A1
+            </div>
+            <div class="numpad__button numpad__button--blue"
+                 ng-class="{'numpad__button--disabled': !inventory[0][1].length}"
+                 ng-click="chooseItem(0,1)">
+                 A2
+            </div>
+            <div class="numpad__button numpad__button--green"
+                 ng-class="{'numpad__button--disabled': !inventory[0][2].length}"
+                 ng-click="chooseItem(0,2)">
+                 A3
+            </div>
           </div>
-          <div class="numpad__button numpad__button--blue"
-               ng-class="{'numpad__button--disabled': !inventory[0][1].length}"
-               ng-click="chooseItem(0,1)">
-               A2
+          <div class="numpad__row">
+            <div class="numpad__button numpad__button--red"
+                 ng-class="{'numpad__button--disabled': !inventory[1][0].length}"
+                 ng-click="chooseItem(1,0)">
+                 B1
+            </div>
+            <div class="numpad__button numpad__button--blue"
+                 ng-class="{'numpad__button--disabled': !inventory[1][1].length}"
+                 ng-click="chooseItem(1,1)">
+                 B2
+            </div>
+            <div class="numpad__button numpad__button--green"
+                 ng-class="{'numpad__button--disabled': !inventory[1][2].length}"
+                 ng-click="chooseItem(1,2)">
+                 B3
+            </div>
           </div>
-          <div class="numpad__button numpad__button--green"
-               ng-class="{'numpad__button--disabled': !inventory[0][2].length}"
-               ng-click="chooseItem(0,2)">
-               A3
-          </div>
-        </div>
-        <div class="numpad__row">
-          <div class="numpad__button numpad__button--red"
-               ng-class="{'numpad__button--disabled': !inventory[1][0].length}"
-               ng-click="chooseItem(1,0)">
-               B1
-          </div>
-          <div class="numpad__button numpad__button--blue"
-               ng-class="{'numpad__button--disabled': !inventory[1][1].length}"
-               ng-click="chooseItem(1,1)">
-               B2
-          </div>
-          <div class="numpad__button numpad__button--green"
-               ng-class="{'numpad__button--disabled': !inventory[1][2].length}"
-               ng-click="chooseItem(1,2)">
-               B3
-          </div>
-        </div>
-        <div class="numpad__row">
-          <div class="numpad__button numpad__button--red"
-               ng-class="{'numpad__button--disabled': !inventory[2][0].length}"
-               ng-click="chooseItem(2,0)">
-               C1
-          </div>
-          <div class="numpad__button numpad__button--blue"
-               ng-class="{'numpad__button--disabled': !inventory[2][1].length}"
-               ng-click="chooseItem(2,1)">
-               C2
-          </div>
-          <div class="numpad__button numpad__button--green"
-               ng-class="{'numpad__button--disabled': !inventory[2][2].length}"
-               ng-click="chooseItem(2,2)">
-               C3
+          <div class="numpad__row">
+            <div class="numpad__button numpad__button--red"
+                 ng-class="{'numpad__button--disabled': !inventory[2][0].length}"
+                 ng-click="chooseItem(2,0)">
+                 C1
+            </div>
+            <div class="numpad__button numpad__button--blue"
+                 ng-class="{'numpad__button--disabled': !inventory[2][1].length}"
+                 ng-click="chooseItem(2,1)">
+                 C2
+            </div>
+            <div class="numpad__button numpad__button--green"
+                 ng-class="{'numpad__button--disabled': !inventory[2][2].length}"
+                 ng-click="chooseItem(2,2)">
+                 C3
+            </div>
           </div>
         </div>
-      </div>
-      <div class="coin-row">
-        <div class="refund-button" ng-class="{'refund-button--active': hasInsertedCash}" ng-click="refund()">
-          <div class="refund-button__label">REFUND</div>
-        </div>
-        <div class="coin-slot">
-          <div class="coin-slot__drop-target" data-drop="true" ng-model="slotContents"
-               jqyoui-droppable="droppableOptions"
-               class="coin-slot">
+        <div class="coin-row">
+          <div class="refund-button" ng-class="{'refund-button--active': hasInsertedCash}" ng-click="refund()">
+            <div class="refund-button__label">REFUND</div>
+          </div>
+          <div class="coin-slot">
+            <div class="coin-slot__drop-target" data-drop="true" ng-model="slotContents"
+                 jqyoui-droppable="droppableOptions"
+                 class="coin-slot">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="coin-return" ng-click="showReturnedItem($event)"
-           ng-class="{'coin-return--glowing': returnedItems.length}"></div>
-    </div>
-  </div>
-  <div class="bank">
-    <div class="coinstack coinstack--nickel">
-      <img class="coinstack__image" src="images/nickels.svg">
-      <div class="coinstack__label">NICKELS</div>
-      <div data-drag="true" jqyoui-draggable="draggableOptions"
-           ng-model="freeNickels" data-jqyoui-options="dragDropOptions"
-           class="coin coin--nickel coin--hidden">
-        <img class="coin__image coin__image--nickel" src="images/coin1.png">
+        <div class="coin-return" ng-click="showReturnedItem($event)"
+             ng-class="{'coin-return--glowing': returnedItems.length}"></div>
       </div>
     </div>
-    <div class="coinstack coinstack--dime">
-      <img class="coinstack__image" src="images/dimes.svg">
-      <div class="coinstack__label">DIMES</div>
-      <div data-drag="true" jqyoui-draggable="draggableOptions"
-           ng-model="freeDimes" data-jqyoui-options="dragDropOptions"
-           class="coin coin--dime coin--hidden">
-        <img class="coin__image coin__image--dime" src="images/coin2.png">
+    <div class="bank">
+      <div class="coinstack coinstack--nickel">
+        <img class="coinstack__image" src="images/nickels.svg">
+        <div class="coinstack__label">NICKELS</div>
+        <div data-drag="true" jqyoui-draggable="draggableOptions"
+             ng-model="freeNickels" data-jqyoui-options="dragDropOptions"
+             class="coin coin--nickel coin--hidden">
+          <img class="coin__image coin__image--nickel" src="images/coin1.png">
+        </div>
       </div>
-    </div>
-    <div class="coinstack coinstack--quarter">
-      <img class="coinstack__image" src="images/quarters.svg">
-      <div class="coinstack__label">QUARTERS</div>
-      <div data-drag="true" jqyoui-draggable="draggableOptions"
-           ng-model="freeQuarters" data-jqyoui-options="dragDropOptions"
-          class="coin coin--dime coin--hidden">
-        <img class="coin__image coin__image--quarter" src="images/coin2.png">
+      <div class="coinstack coinstack--dime">
+        <img class="coinstack__image" src="images/dimes.svg">
+        <div class="coinstack__label">DIMES</div>
+        <div data-drag="true" jqyoui-draggable="draggableOptions"
+             ng-model="freeDimes" data-jqyoui-options="dragDropOptions"
+             class="coin coin--dime coin--hidden">
+          <img class="coin__image coin__image--dime" src="images/coin2.png">
+        </div>
       </div>
+      <div class="coinstack coinstack--quarter">
+        <img class="coinstack__image" src="images/quarters.svg">
+        <div class="coinstack__label">QUARTERS</div>
+        <div data-drag="true" jqyoui-draggable="draggableOptions"
+             ng-model="freeQuarters" data-jqyoui-options="dragDropOptions"
+            class="coin coin--dime coin--hidden">
+          <img class="coin__image coin__image--quarter" src="images/coin2.png">
+        </div>
+      </div>
+      <div class="bank__instructions">drag the coins!</div>
     </div>
-    <div class="bank__instructions">drag the coins!</div>
   </div>
 
   <script src="bower_components/angular/angular.js"></script>

@@ -1,7 +1,19 @@
 body {
   display: flex;
-  background-color: black;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+
+  background-color: black;
+}
+
+.ng-cloak {
+  visibility: hidden;
+}
+
+.machine-container {
+  display: flex;
 }
 
 .background-video {
