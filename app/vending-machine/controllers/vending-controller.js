@@ -147,6 +147,31 @@ angular.module('vendingApp')
     ];
 
     //------------------------------------\\
+    //  DISPENSING ANIMATION
+    //------------------------------------\\
+
+    $scope.showDispensedItem = function($event){
+      if (!$scope.dispensedItems.length) {
+        return;
+      }
+      //get item from dispenser
+      var item = $scope.dispensedItems.shift();
+      var flyingItem = $('<div class="flying-item flying-item--' + item.type +
+       ' flying-item--' + item.type + '--' + item.color + '"></div>')
+        .appendTo($event.target);
+      var itemX = $event.offsetX - flyingItem.width()/2;
+      var itemY = $event.offsetY - flyingItem.height()/2;
+      flyingItem.css({left: itemX, top: itemY});
+      //calcuate flight path
+      var distanceY = flyingItem.offset().top + 200;
+      var distanceX = _.random(-$(window).width(), $(window).width());
+      //fly the item!
+      flyingItem.animate({top: 1-distanceY, left: distanceX}, 1500, 'linear', function(){
+        flyingItem.remove();
+      });
+    };
+
+    //------------------------------------\\
     //  COIN DRAG AND DROP
     //------------------------------------\\
 

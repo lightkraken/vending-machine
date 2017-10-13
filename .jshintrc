@@ -15,6 +15,7 @@
     "element": false,
     "by": false,
     "_": false,
-    "$": false
+    "$": false,
+    "window": false
   }
 }

@@ -124,3 +124,62 @@
   0%, 100% {
     transform: translate(0, 0) rotate(0); }
   }
+
+.flying-item {
+  position: absolute;
+  z-index: 100;
+
+  animation: item-exit 4s linear;
+  animation-fill-mode: forwards;
+}
+
+.flying-item--chips {
+  width: 73px;
+  height: 99px;
+  background-size: 73px 99px;
+}
+.flying-item--chips--red {
+  background-image: url('../images/chips1.png');
+}
+.flying-item--chips--blue {
+  background-image: url('../images/chips2.png');
+}
+.flying-item--chips--green {
+  background-image: url('../images/chips3.png');
+}
+
+.flying-item--candy {
+  width: 62px;
+  height: 62px;
+  background-size: 62px 62px;
+}
+.flying-item--candy--red {
+  background-image: url('../images/candy1.png');
+}
+.flying-item--candy--blue {
+  background-image: url('../images/candy2.png');
+}
+.flying-item--candy--green {
+  background-image: url('../images/candy3.png');
+}
+
+.flying-item--soda {
+  width: 56px;
+  height: 90px;
+  background-size: 56px 90px;
+}
+.flying-item--soda--red {
+  background-image: url('../images/soda1.png');
+}
+.flying-item--soda--blue {
+  background-image: url('../images/soda2.png');
+}
+.flying-item--soda--green {
+  background-image: url('../images/soda3.png');
+}
+
+@keyframes item-exit {
+  100% {
+    transform: rotate(720deg) scale(10);
+  }
+}

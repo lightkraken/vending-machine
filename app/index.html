@@ -140,10 +140,11 @@
         </div>
       </div>
       <div class="dispenser" ng-class="{
-       'dispenser--active': dispensedItems.length,
-       'dispenser--active--red': dispensedItems[0].color === 'red',
-       'dispenser--active--blue': dispensedItems[0].color === 'blue',
-       'dispenser--active--green': dispensedItems[0].color === 'green'}">
+           'dispenser--active': dispensedItems.length,
+           'dispenser--active--red': dispensedItems[0].color === 'red',
+           'dispenser--active--blue': dispensedItems[0].color === 'blue',
+           'dispenser--active--green': dispensedItems[0].color === 'green'}"
+           ng-click="showDispensedItem($event)">
       </div>
     </div>
     <div class="machine__right">
