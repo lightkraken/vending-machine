@@ -4,9 +4,9 @@ angular.module('vendingApp')
 
 .controller('VendingController', ['$scope', 'COINS', 'STATES', 'PRICES', 'BROADCASTS', 'CashService',
             'InventoryService', 'CoinValidatorService', 'MessageService', 'OutputService',
-            'StateService',
+            'StateService', 'SoundService',
   function($scope, COINS, STATES, PRICES, BROADCASTS, CashService, InventoryService,
-           CoinValidatorService, MessageService, OutputService, StateService) {
+           CoinValidatorService, MessageService, OutputService, StateService, SoundService) {
 
     $scope.inventory = InventoryService.inventory;
     $scope.returnedItems = OutputService.returnedItems;
@@ -87,6 +87,7 @@ angular.module('vendingApp')
     //------------------------------------\\
 
     var chooseItem = function(row, column){
+      SoundService.numpad.play();
       if (InventoryService.inStock(row, column)) {
         return true;
       } else {
@@ -131,6 +132,7 @@ angular.module('vendingApp')
 
     var dispenseItem = function(row, column){
       StateService.setDisabled();
+      SoundService.vend.play();
       $scope.dispensing[row][column][0] = true;
       $scope.hasInsertedCash = false;
       MessageService.notifyThankYou().then(function(){
@@ -166,6 +168,7 @@ angular.module('vendingApp')
       var distanceY = flyingItem.offset().top + 200;
       var distanceX = _.random(-$(window).width(), $(window).width());
       //fly the item!
+      SoundService.item.play();
       flyingItem.animate({top: 1-distanceY, left: distanceX}, 1500, 'linear', function(){
         flyingItem.remove();
       });
@@ -242,6 +245,7 @@ angular.module('vendingApp')
       var stackYrelative = stackYoffset - coinYoffset;
       //fly the coin!
       flyingCoin.animate({left: stackXrelative, top: stackYrelative}, 400, 'easeInQuart', function(){
+        SoundService.returnCoinToStack.play();
         flyingCoin.fadeOut(300, function(){
           flyingCoin.remove();
         });

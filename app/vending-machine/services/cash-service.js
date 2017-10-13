@@ -2,8 +2,8 @@
 
 angular.module('vendingApp')
 
-.service('CashService', ['COINS',
-  function (COINS){
+.service('CashService', ['COINS', 'SoundService',
+  function (COINS, SoundService){
     var insertedCash = {
       nickel: [],
       dime: [],
@@ -54,6 +54,7 @@ angular.module('vendingApp')
     };
 
     this.insertCoin = function(coinType, coin){
+      SoundService.insertValidCoin.play();
       insertedCash[coinType].push(coin);
     };
 

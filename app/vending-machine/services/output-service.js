@@ -2,8 +2,8 @@
 
 angular.module('vendingApp')
 
-.service('OutputService', [
-  function (){
+.service('OutputService', ['SoundService',
+  function (SoundService){
     var self = this;
     this.returnedItems = [];
     this.dispensedItems = [];
@@ -13,8 +13,14 @@ angular.module('vendingApp')
         _.each(items, function(item){
           self.returnedItems.push(item);
         });
+        if (items.length > 1) {
+          SoundService.returnMultipleCoins.play();
+        } else if (items.length) {
+          SoundService.returnSingleCoin.play();
+        }
       } else {
         self.returnedItems.push(items);
+        SoundService.returnSingleCoin.play();
       }
     };
 
