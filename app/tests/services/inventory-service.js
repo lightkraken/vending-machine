@@ -79,18 +79,6 @@ describe('vendingApp', function() {
 
     });
 
-    describe('when inventory changes', function(){
-      it('should broadcast that a change has occured', function(){
-        spyOn($rootScope, '$broadcast');
-        var randomRow = _.random(2);
-        var randomColumn = _.random(2);
-        InventoryService.inventory[randomRow][randomColumn].push(ITEMS.type.CANDY);
-        InventoryService.retrieveItem(randomRow,randomColumn);
-        InventoryService.stockRandomInventory();
-        expect($rootScope.$broadcast).toHaveBeenCalledTimes(2);
-      });
-    });
-
   });
 
 });

@@ -2,22 +2,23 @@
 
 angular.module('vendingApp')
 
-.service('OutputService', ['$rootScope', 'BROADCASTS',
-  function ($rootScope, BROADCASTS){
+.service('OutputService', [
+  function (){
+    var self = this;
     this.returnedItems = [];
     this.dispensedItems = [];
 
     this.returnItems = function(items) {
       if (_.isArray(items)) {
-        this.returnedItems = this.returnedItems.concat(items);
+        _.each(items, function(item){
+          self.returnedItems.push(item);
+        });
       } else {
-        this.returnedItems.push(items);
+        self.returnedItems.push(items);
       }
-      $rootScope.$broadcast(BROADCASTS.RETURNED);
     };
 
     this.dispenseItem = function(item) {
-      this.dispensedItems.unshift(item);
-      $rootScope.$broadcast(BROADCASTS.DISPENSED);
+      self.dispensedItems.unshift(item);
     };
 }]);

@@ -2,8 +2,8 @@
 
 angular.module('vendingApp')
 
-.service('InventoryService', ['$rootScope', 'BROADCASTS', 'ITEMS',
-  function ($rootScope, BROADCASTS, ITEMS){
+.service('InventoryService', ['$rootScope', 'ITEMS',
+  function ($rootScope, ITEMS){
 
     var createItem = function(type, color){
       return {
@@ -38,7 +38,6 @@ angular.module('vendingApp')
       stockInventory(this.inventory[2][0], ITEMS.type.SODA, ITEMS.color.RED, soda[0]);
       stockInventory(this.inventory[2][1], ITEMS.type.SODA, ITEMS.color.BLUE, soda[1]);
       stockInventory(this.inventory[2][2], ITEMS.type.SODA, ITEMS.color.GREEN, soda[2]);
-      $rootScope.$broadcast(BROADCASTS.INVENTORY);
     };
 
     this.inStock = function(row, column){
@@ -51,7 +50,6 @@ angular.module('vendingApp')
 
     this.retrieveItem = function(row, column){
       var item = this.inventory[row][column].pop();
-      $rootScope.$broadcast(BROADCASTS.INVENTORY);
       return item;
     };
 

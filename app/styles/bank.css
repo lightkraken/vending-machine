@@ -44,13 +44,13 @@
   .coinstack__image {
     display: block;
   }
-  .coinstack__image--nickels{
+  .coinstack--nickel .coinstack__image{
     height: 80px;
   }
-  .coinstack__image--dimes{
+  .coinstack--dime .coinstack__image{
     height: 60px;
   }
-  .coinstack__image--quarters{
+  .coinstack--quarter .coinstack__image{
     height: 70px;
   }
 

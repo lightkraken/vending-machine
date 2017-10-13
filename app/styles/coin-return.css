@@ -16,3 +16,26 @@
   cursor: pointer;
   animation: door-glow 0.75s infinite alternate ease;
 }
+
+.flying-coin {
+  position: absolute;
+  z-index: 1000;
+}
+.flying-coin--nickel {
+  width: 65px;
+  height: 70px;
+  background-image: url(../images/coin1.png);
+  background-size: 65px 70px;
+}
+.flying-coin--dime {
+  width: 55px;
+  height: 60px;
+  background-image: url(../images/coin2.png);
+  background-size: 55px 60px;
+}
+.flying-coin--quarter {
+  width: 74px;
+  height: 80px;
+  background-image: url(../images/coin2.png);
+  background-size: 74px 80px;
+}

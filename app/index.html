@@ -212,12 +212,13 @@
           </div>
         </div>
       </div>
-      <div class="coin-return" ng-class="{'coin-return--glowing': returnedItems.length}"></div>
+      <div class="coin-return" ng-click="showReturnedItem($event)"
+           ng-class="{'coin-return--glowing': returnedItems.length}"></div>
     </div>
   </div>
   <div class="bank">
-    <div class="coinstack">
-      <img class="coinstack__image coinstack__image--nickels" src="images/nickels.svg">
+    <div class="coinstack coinstack--nickel">
+      <img class="coinstack__image" src="images/nickels.svg">
       <div class="coinstack__label">NICKELS</div>
       <div data-drag="true" jqyoui-draggable="draggableOptions"
            ng-model="freeNickels" data-jqyoui-options="dragDropOptions"
@@ -225,8 +226,8 @@
         <img class="coin__image coin__image--nickel" src="images/coin1.png">
       </div>
     </div>
-    <div class="coinstack">
-      <img class="coinstack__image coinstack__image--dimes" src="images/dimes.svg">
+    <div class="coinstack coinstack--dime">
+      <img class="coinstack__image" src="images/dimes.svg">
       <div class="coinstack__label">DIMES</div>
       <div data-drag="true" jqyoui-draggable="draggableOptions"
            ng-model="freeDimes" data-jqyoui-options="dragDropOptions"
@@ -234,8 +235,8 @@
         <img class="coin__image coin__image--dime" src="images/coin2.png">
       </div>
     </div>
-    <div class="coinstack">
-      <img class="coinstack__image coinstack__image--quarters" src="images/quarters.svg">
+    <div class="coinstack coinstack--quarter">
+      <img class="coinstack__image" src="images/quarters.svg">
       <div class="coinstack__label">QUARTERS</div>
       <div data-drag="true" jqyoui-draggable="draggableOptions"
            ng-model="freeQuarters" data-jqyoui-options="dragDropOptions"

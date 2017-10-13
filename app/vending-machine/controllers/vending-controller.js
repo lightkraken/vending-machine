@@ -14,15 +14,6 @@ angular.module('vendingApp')
     $scope.message = MessageService.message;
     $scope.hasInsertedCash = false;
 
-    $scope.$on(BROADCASTS.INVENTORY, function(){
-      $scope.inventory = InventoryService.inventory;
-    });
-    $scope.$on(BROADCASTS.RETURNED, function(){
-      $scope.returnedItems = OutputService.returnedItems;
-    });
-    $scope.$on(BROADCASTS.DISPENSED, function(){
-      $scope.dispensedItems = OutputService.dispensedItems;
-    });
     $scope.$on(BROADCASTS.MESSAGE, function(){
       $scope.message = MessageService.message;
     });
@@ -135,6 +126,27 @@ angular.module('vendingApp')
     };
 
     //------------------------------------\\
+    //  DISPENSING
+    //------------------------------------\\
+
+    var dispenseItem = function(row, column){
+      StateService.setDisabled();
+      $scope.dispensing[row][column][0] = true;
+      $scope.hasInsertedCash = false;
+      MessageService.notifyThankYou().then(function(){
+        $scope.dispensing[row][column][0] = false;
+        OutputService.dispenseItem(InventoryService.retrieveItem(row, column));
+        StateService.setIdle();
+      });
+    };
+
+    $scope.dispensing =  [
+          [ [false],[false],[false] ],
+          [ [false],[false],[false] ],
+          [ [false],[false],[false] ]
+    ];
+
+    //------------------------------------\\
     //  COIN DRAG AND DROP
     //------------------------------------\\
 
@@ -154,6 +166,9 @@ angular.module('vendingApp')
     };
 
     $scope.slotContents = [];
+    $scope.freeNickels = [];
+    $scope.freeDimes = [];
+    $scope.freeQuarters = [];
 
     var refreshBank = function(){
       $scope.freeNickels = CashService.createCoins(COINS.NICKEL, 1);
@@ -177,25 +192,37 @@ angular.module('vendingApp')
     };
 
     //------------------------------------\\
-    //  DISPENSING
+    //  RETURNING COINS ANIMATION
     //------------------------------------\\
 
-    var dispenseItem = function(row, column){
-      $scope.dispensing[row][column][0] = true;
-      $scope.hasInsertedCash = false;
-      StateService.setDisabled();
-      MessageService.notifyThankYou().then(function(){
-        $scope.dispensing[row][column][0] = false;
-        OutputService.dispenseItem(InventoryService.retrieveItem(row, column));
-        StateService.setIdle();
+    $scope.showReturnedItem = function($event){
+      if (!$scope.returnedItems.length) {
+        return;
+      }
+      //grab a random coin from the coin return
+      var coin = $scope.returnedItems.splice(_.random($scope.returnedItems.length-1), 1)[0];
+      var coinType = CoinValidatorService.validateCoin(coin);
+      var flyingCoin = $('<div class="flying-coin flying-coin--' + coinType + '"></div>')
+        .appendTo($event.target);
+      var coinX = $event.offsetX - flyingCoin.width()/2;
+      var coinY = $event.offsetY - flyingCoin.height()/2;
+      flyingCoin.css({left: coinX, top: coinY});
+      //calculate flight path
+      var coinXoffset = flyingCoin.offset().left - coinX;
+      var coinYoffset = flyingCoin.offset().top - coinY;
+      var stack = $('.coinstack--' + coinType);
+      var stackXoffset = stack.offset().left;
+      var stackYoffset = stack.offset().top;
+      var stackXrelative = stackXoffset - coinXoffset;
+      var stackYrelative = stackYoffset - coinYoffset;
+      //fly the coin!
+      flyingCoin.animate({left: stackXrelative, top: stackYrelative}, 400, 'easeInQuart', function(){
+        flyingCoin.fadeOut(300, function(){
+          flyingCoin.remove();
+        });
       });
-    };
 
-    $scope.dispensing =  [
-          [ [false],[false],[false] ],
-          [ [false],[false],[false] ],
-          [ [false],[false],[false] ]
-    ];
+    };
 
   }
 ]);

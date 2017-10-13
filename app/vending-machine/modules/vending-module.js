@@ -60,8 +60,5 @@ angular.module('vendingApp.vendingMachine', [])
 ])
 
 .constant('BROADCASTS', {
-  INVENTORY: 'inventory',
-  RETURNED: 'returned',
-  DISPENSED: 'dispensed',
   MESSAGE: 'message'
 });

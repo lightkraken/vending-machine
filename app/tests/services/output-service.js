@@ -50,16 +50,6 @@ describe('vendingApp', function() {
 
     });
 
-    describe('on returning or dispensing', function(){
-      it('should broadcast that a change has occured', function(){
-        spyOn($rootScope, '$broadcast');
-        OutputService.returnItems('item');
-        OutputService.dispenseItem('item');
-        expect($rootScope.$broadcast).toHaveBeenCalledTimes(2);
-      });
-
-    });
-
   });
 
 });
