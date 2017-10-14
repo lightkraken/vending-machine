@@ -24,41 +24,25 @@ describe('vendingApp', function() {
 
   describe('StateService', function(){
 
-    it('should know the current state of the application', function(){
-      spyOn(InventoryService, 'getRowTotal').and.returnValue(true);
-      spyOn(CashService, 'getCoinTotal').and.returnValue(5);
-      StateService.setIdle();
-      expect(StateService.state).toEqual(STATES.IDLE);
-      StateService.setMoney();
-      expect(StateService.state).toEqual(STATES.MONEY);
-    });
-
     describe('on idle state', function(){
 
       beforeEach(function(){
-        spyOn(MessageService, 'idle');
-        spyOn(MessageService, 'idleLowCash');
-        spyOn(MessageService, 'noMessage');
+        StateService.setIdle();
       });
 
       describe('with no stock at all', function(){
 
-        beforeEach(function(){
-          spyOn(InventoryService, 'getRowTotal').and.returnValue(0);
-          StateService.setIdle();
-        });
-
         it('should blank the display', function(){
-          expect(MessageService.noMessage).toHaveBeenCalledTimes(1);
+          expect(MessageService.message.text).toEqual('');
         });
 
         it('should disable the machine', function(){
-          expect(StateService.state).toEqual(STATES.DISABLED);
+          expect(StateService.state.currentState).toEqual(STATES.DISABLED);
         });
 
       });
 
-      describe('wihtout nickels', function(){
+      describe('without nickels', function(){
 
         it('should display EXACT CHANGE ONLY', function(){
           spyOn(InventoryService, 'getRowTotal').and.returnValue(true);
@@ -70,7 +54,7 @@ describe('vendingApp', function() {
             }
           });
           StateService.setIdle();
-          expect(MessageService.idleLowCash).toHaveBeenCalled();
+          expect(MessageService.message.text).toEqual(MESSAGES.EXACTCHANGE);
         });
 
       });
@@ -90,8 +74,7 @@ describe('vendingApp', function() {
               }
             });
             StateService.setIdle();
-            expect(MessageService.idle).toHaveBeenCalledTimes(1);
-            expect(MessageService.idleLowCash).not.toHaveBeenCalled();
+            expect(MessageService.message.text).toEqual(MESSAGES.INSERTCOIN);
           });
 
         });
@@ -107,8 +90,7 @@ describe('vendingApp', function() {
               }
             });
             StateService.setIdle();
-            expect(MessageService.idle).toHaveBeenCalledTimes(1);
-            expect(MessageService.idleLowCash).not.toHaveBeenCalled();
+            expect(MessageService.message.text).toEqual(MESSAGES.INSERTCOIN);
           });
 
         });
@@ -126,7 +108,7 @@ describe('vendingApp', function() {
               }
             });
             StateService.setIdle();
-            expect(MessageService.idleLowCash).toHaveBeenCalled();
+            expect(MessageService.message.text).toEqual(MESSAGES.EXACTCHANGE);
           });
 
         });

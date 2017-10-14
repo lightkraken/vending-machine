@@ -5,43 +5,71 @@ describe('vendingApp', function() {
   beforeEach(module('vendingApp'));
 
   describe('InventoryService', function(){
-    var $rootScope;
     var InventoryService;
     var COINS;
     var ITEMS;
 
-    beforeEach(inject(function (_$rootScope_, _InventoryService_, _COINS_, _ITEMS_) {
-      $rootScope = _$rootScope_;
+    beforeEach(inject(function (_InventoryService_, _COINS_, _ITEMS_) {
       InventoryService = _InventoryService_;
       COINS = _COINS_;
       ITEMS = _ITEMS_;
     }));
 
+    it('should keep track of which inventory is currently being dispensed', function(){
+      expect(InventoryService.beingDispensed).toBeDefined();
+    });
+
     describe('stocking inventory', function(){
 
-      it('should stock the inventory with a random amount of items', function(){
-        var min = 1;
-        var max = 3;
-        var sodaMax = 2;
+      beforeEach(function(){
         InventoryService.stockRandomInventory();
-        expect((InventoryService.inventory[0][0].length >= min) &&
-               (InventoryService.inventory[0][0].length <= max)).toBe(true);
-        expect((InventoryService.inventory[0][1].length >= min) &&
-               (InventoryService.inventory[0][1].length <= max)).toBe(true);
-        expect((InventoryService.inventory[0][2].length >= min) &&
-               (InventoryService.inventory[0][2].length <= max)).toBe(true);
-        expect((InventoryService.inventory[1][0].length >= min) &&
-               (InventoryService.inventory[1][0].length <= max)).toBe(true);
-        expect((InventoryService.inventory[1][1].length >= min) &&
-               (InventoryService.inventory[1][1].length <= max)).toBe(true);
-        expect((InventoryService.inventory[1][2].length >= min) &&
-               (InventoryService.inventory[1][2].length <= max)).toBe(true);
-        expect((InventoryService.inventory[2][0].length >= min) &&
-               (InventoryService.inventory[2][0].length <= sodaMax)).toBe(true);
-        expect((InventoryService.inventory[2][1].length >= min) &&
-               (InventoryService.inventory[2][1].length <= sodaMax)).toBe(true);
-        expect((InventoryService.inventory[2][2].length >= min) &&
-               (InventoryService.inventory[2][2].length <= sodaMax)).toBe(true);
+      });
+
+      describe('first row', function(){
+
+        it('should randomly stock one slot with 1 item, another slot with 2 items, and another with 3 items', function(){
+          var row = [
+            InventoryService.inventory[0][0].length,
+            InventoryService.inventory[0][1].length,
+            InventoryService.inventory[0][2].length
+          ];
+          var rowCount = _.countBy(row);
+          expect(rowCount['1']).toEqual(1);
+          expect(rowCount['2']).toEqual(1);
+          expect(rowCount['3']).toEqual(1);
+        });
+
+      });
+
+      describe('second row', function(){
+
+        it('should randomly stock one slot with 1 item, another slot with 2 items, and another with 3 items', function(){
+          var row = [
+            InventoryService.inventory[1][0].length,
+            InventoryService.inventory[1][1].length,
+            InventoryService.inventory[1][2].length
+          ];
+          var rowCount = _.countBy(row);
+          expect(rowCount['1']).toEqual(1);
+          expect(rowCount['2']).toEqual(1);
+          expect(rowCount['3']).toEqual(1);
+        });
+
+      });
+
+      describe('third row', function(){
+
+        it('should randomly stock one slot with 1 item, another slot with 2 items, and another with 2 items', function(){
+          var row = [
+            InventoryService.inventory[2][0].length,
+            InventoryService.inventory[2][1].length,
+            InventoryService.inventory[2][2].length
+          ];
+          var rowCount = _.countBy(row);
+          expect(rowCount['1']).toEqual(1);
+          expect(rowCount['2']).toEqual(2);
+        });
+
       });
 
     });

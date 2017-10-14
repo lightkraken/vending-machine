@@ -69,7 +69,7 @@ describe('vendingApp', function() {
 
     describe('getting the total credit', function(){
 
-      it('should display the total cash value of coins that the user has inserted', function(){
+      it('should get the total cash value of coins that the user has inserted', function(){
         expect(CashService.getTotalCredit()).toEqual(0);
         CashService.insertCoin(COINS.NICKEL.label, COINS.NICKEL);
         CashService.insertCoin(COINS.DIME.label, COINS.DIME);
@@ -142,6 +142,24 @@ describe('vendingApp', function() {
         expect(change).toEqual([
           COINS.NICKEL
         ]);
+      });
+
+    });
+
+    describe('providing free coins', function(){
+
+      it('should provide an unlimited amout of coins for the user to drag into the machine', function(){
+        CashService.refreshFreeCoins();
+        expect(CashService.freeCoins.nickels.length === 1);
+        expect(CashService.freeCoins.dimes.length === 1);
+        expect(CashService.freeCoins.quarters.length === 1);
+        CashService.freeCoins.nickels.pop();
+        CashService.freeCoins.dimes.pop();
+        CashService.freeCoins.quarters.pop();
+        CashService.refreshFreeCoins();
+        expect(CashService.freeCoins.nickels.length === 1);
+        expect(CashService.freeCoins.dimes.length === 1);
+        expect(CashService.freeCoins.quarters.length === 1);
       });
 
     });

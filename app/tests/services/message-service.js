@@ -7,13 +7,11 @@ describe('vendingApp', function() {
   describe('MessageService', function(){
     var MessageService;
     var $timeout;
-    var $rootScope;
     var MESSAGES;
 
-    beforeEach(inject(function (_MessageService_, _$timeout_, _$rootScope_, _MESSAGES_) {
+    beforeEach(inject(function (_MessageService_, _$timeout_, _MESSAGES_) {
       MessageService = _MessageService_;
       $timeout = _$timeout_;
-      $rootScope = _$rootScope_;
       MESSAGES = _MESSAGES_;
     }));
 
@@ -21,7 +19,7 @@ describe('vendingApp', function() {
 
       it('should display INSERT COIN', function(){
         MessageService.idle();
-        expect(MessageService.message).toEqual(MESSAGES.INSERTCOIN);
+        expect(MessageService.message.text).toEqual(MESSAGES.INSERTCOIN);
       });
 
     });
@@ -30,7 +28,7 @@ describe('vendingApp', function() {
 
       it('should display EXACT CHANGE ONLY', function(){
         MessageService.idleLowCash();
-        expect(MessageService.message).toEqual(MESSAGES.EXACTCHANGE);
+        expect(MessageService.message.text).toEqual(MESSAGES.EXACTCHANGE);
       });
 
     });
@@ -39,11 +37,11 @@ describe('vendingApp', function() {
 
       it('should display the value of coins inserted', function(){
         MessageService.totalCredit(50);
-        expect(MessageService.message).toEqual('$0.50');
+        expect(MessageService.message.text).toEqual('$0.50');
         MessageService.totalCredit(65);
-        expect(MessageService.message).toEqual('$0.65');
+        expect(MessageService.message.text).toEqual('$0.65');
         MessageService.totalCredit(100);
-        expect(MessageService.message).toEqual('$1.00');
+        expect(MessageService.message.text).toEqual('$1.00');
       });
 
     });
@@ -52,7 +50,7 @@ describe('vendingApp', function() {
 
       it('should display nothing', function(){
         MessageService.noMessage();
-        expect(MessageService.message).toEqual('');
+        expect(MessageService.message.text).toEqual('');
       });
 
     });
@@ -64,7 +62,7 @@ describe('vendingApp', function() {
         MessageService.notifyThankYou().then(function(){
           resolved = true;
         });
-        expect(MessageService.message).toEqual(MESSAGES.THANKYOU);
+        expect(MessageService.message.text).toEqual(MESSAGES.THANKYOU);
         expect(resolved).toBe(false);
         $timeout.flush();
         expect(resolved).toBe(true);
@@ -77,18 +75,18 @@ describe('vendingApp', function() {
       it('should display SOLD OUT for a moment, then return to the previous message', function(){
         MessageService.idle();
         MessageService.notifySoldOut();
-        expect(MessageService.message).toEqual(MESSAGES.SOLDOUT);
+        expect(MessageService.message.text).toEqual(MESSAGES.SOLDOUT);
         $timeout.flush();
-        expect(MessageService.message).toEqual(MESSAGES.INSERTCOIN);
+        expect(MessageService.message.text).toEqual(MESSAGES.INSERTCOIN);
       });
 
       it('should interrupt and override any other notifications currently being displayed', function(){
         MessageService.idle();
         MessageService.notifyPrice(65);
         MessageService.notifySoldOut();
-        expect(MessageService.message).toEqual(MESSAGES.SOLDOUT);
+        expect(MessageService.message.text).toEqual(MESSAGES.SOLDOUT);
         $timeout.flush();
-        expect(MessageService.message).toEqual(MESSAGES.INSERTCOIN);
+        expect(MessageService.message.text).toEqual(MESSAGES.INSERTCOIN);
       });
 
     });
@@ -98,37 +96,18 @@ describe('vendingApp', function() {
       it('should display the PRICE for a moment, then return to the previous message', function(){
         MessageService.idle();
         MessageService.notifyPrice(65);
-        expect(MessageService.message).toEqual(MESSAGES.PRICE + ' $0.65');
+        expect(MessageService.message.text).toEqual(MESSAGES.PRICE + ' $0.65');
         $timeout.flush();
-        expect(MessageService.message).toEqual(MESSAGES.INSERTCOIN);
+        expect(MessageService.message.text).toEqual(MESSAGES.INSERTCOIN);
       });
 
       it('should interrupt and override any other notifications currently being displayed', function(){
         MessageService.idle();
         MessageService.notifySoldOut();
         MessageService.notifyPrice(65);
-        expect(MessageService.message).toEqual(MESSAGES.PRICE + ' $0.65');
+        expect(MessageService.message.text).toEqual(MESSAGES.PRICE + ' $0.65');
         $timeout.flush();
-        expect(MessageService.message).toEqual(MESSAGES.INSERTCOIN);
-      });
-
-    });
-
-    describe('when message changes', function(){
-
-      it('should broadcast that a change has occured', function(){
-        spyOn($rootScope, '$broadcast');
-        MessageService.idle();
-        MessageService.idleLowCash();
-        MessageService.totalCredit(50);
-        MessageService.noMessage();
-        MessageService.notifyThankYou();
-        $timeout.flush();
-        MessageService.notifySoldOut(); //2 updates
-        $timeout.flush();
-        MessageService.notifyPrice(50); //2 updates
-        $timeout.flush();
-        expect($rootScope.$broadcast).toHaveBeenCalledTimes(9);
+        expect(MessageService.message.text).toEqual(MESSAGES.INSERTCOIN);
       });
 
     });
