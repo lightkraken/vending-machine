@@ -57,8 +57,4 @@ angular.module('vendingApp.vendingMachine', [])
   50,
   65,
   100
-])
-
-.constant('BROADCASTS', {
-  MESSAGE: 'message'
-});
+]);

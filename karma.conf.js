@@ -11,7 +11,7 @@ module.exports = function(config) {
       'bower_components/jquery/dist/jquery.js',
       'bower_components/jquery-ui/jquery-ui.js',
       'bower_components/angular-dragdrop/src/angular-dragdrop.js',
-      'bower_components/howler.js/dist/howler.js',     
+      'bower_components/howler.js/dist/howler.js',
       'app.js',
       'vending-machine/**/*.js',
       'tests/**/*.js'
@@ -36,7 +36,9 @@ module.exports = function(config) {
       suite: 'unit'
     },
 
-    client: {clearContext: false},
+    client: {
+      clearContext: false
+    },
 
     reporters: ['kjhtml']
 

@@ -7,19 +7,19 @@ angular.module('vendingApp')
   function (MessageService, InventoryService, CashService, COINS, STATES) {
 
     var self = this;
-    this.state = '';
+    this.state = {currentState: ''};
 
     this.setIdle = function(){
-      self.state = STATES.IDLE;
+      self.state.currentState = STATES.IDLE;
       onIdle();
     };
 
     this.setMoney = function(){
-      self.state = STATES.MONEY;
+      self.state.currentState = STATES.MONEY;
     };
 
     this.setDisabled = function(){
-      self.state = STATES.DISABLED;
+      self.state.currentState = STATES.DISABLED;
     };
 
     var onIdle = function(){

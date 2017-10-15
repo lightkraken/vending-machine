@@ -2,32 +2,24 @@
 
 angular.module('vendingApp')
 
-.service('MessageService', ['MESSAGES', 'BROADCASTS', '$rootScope', '$filter', '$timeout',
-  function (MESSAGES, BROADCASTS, $rootScope, $filter, $timeout, $q) {
-    this.message = '';
-
-    var messageUpdated = function(){
-      $rootScope.$broadcast(BROADCASTS.MESSAGE);
-    };
+.service('MessageService', ['MESSAGES', '$filter', '$timeout',
+  function (MESSAGES, $filter, $timeout) {
+    this.message = {text: ''};
 
     this.idle = function(){
-      this.message = MESSAGES.INSERTCOIN;
-      messageUpdated();
+      this.message.text = MESSAGES.INSERTCOIN;
     };
 
     this.idleLowCash = function(){
-      this.message = MESSAGES.EXACTCHANGE;
-      messageUpdated();
+      this.message.text = MESSAGES.EXACTCHANGE;
     };
 
     this.totalCredit = function(total){
-      this.message = $filter('centsToDollars')(total);
-      messageUpdated();
+      this.message.text = $filter('centsToDollars')(total);
     };
 
     this.noMessage = function(){
-      this.message = '';
-      messageUpdated();
+      this.message.text = '';
     };
 
     var self = this;
@@ -40,17 +32,15 @@ angular.module('vendingApp')
         $timeout.cancel(timer);
       } else {
         notifying = true;
-        if (revert) {oldMessage = self.message;}
+        if (revert) {oldMessage = self.message.text;}
       }
 
-      self.message = newMessage;
-      messageUpdated();
+      self.message.text = newMessage;
 
       timer = $timeout(function(){
         notifying = false;
         if (revert) {
-          self.message = oldMessage;
-          messageUpdated();
+          self.message.text = oldMessage;
         }
       }, 1000);
 

@@ -27,29 +27,32 @@
   <video class="background-video" src="videos/space.mp4" playsinline autoplay muted loop></video>
   <div class="video-overlay"></div>
   <div ng-cloak class="machine-container">
-    <div class="machine">
+    <div class="machine" ng-class="{'machine--visible': totalItems>=17}">
       <div class="machine__left">
         <div class="showcase">
           <div class="showcase__row showcase__row--chips">
             <div class="showcase__column">
               <div ng-repeat="item in inventory[0][0]" class="item item--chips-{{$index}}"
-                   ng-class="{'fall-chips': dispensing[0][0][$index]}">
+                   ng-class="{'fall-chips': beingDispensed[0][0][$index]}"
+                   ng-init="$parent.totalItems = $parent.totalItems+1">
                 <img class="item__image item__image--chips" src="images/chips1.png"
-                     ng-class="{'shake': dispensing[0][0][$index]}">
+                     ng-class="{'shake': beingDispensed[0][0][$index]}">
               </div>
             </div>
             <div class="showcase__column">
               <div ng-repeat="item in inventory[0][1]" class="item item--chips-{{$index}}"
-                   ng-class="{'fall-chips': dispensing[0][1][$index]}">
+                   ng-class="{'fall-chips': beingDispensed[0][1][$index]}"
+                   ng-init="$parent.totalItems = $parent.totalItems+1">
                 <img class="item__image item__image--chips" src="images/chips2.png"
-                     ng-class="{'shake': dispensing[0][1][$index]}">
+                     ng-class="{'shake': beingDispensed[0][1][$index]}">
               </div>
             </div>
             <div class="showcase__column">
               <div ng-repeat="item in inventory[0][2]" class="item item--chips-{{$index}}"
-                   ng-class="{'fall-chips': dispensing[0][2][$index]}">
+                   ng-class="{'fall-chips': beingDispensed[0][2][$index]}"
+                   ng-init="$parent.totalItems = $parent.totalItems+1">
                 <img class="item__image item__image--chips" src="images/chips3.png"
-                     ng-class="{'shake': dispensing[0][2][$index]}">
+                     ng-class="{'shake': beingDispensed[0][2][$index]}">
               </div>
             </div>
           </div>
@@ -70,23 +73,26 @@
           <div class="showcase__row showcase__row--candy">
             <div class="showcase__column">
               <div ng-repeat="item in inventory[1][0]" class="item item--candy-{{$index}}"
-                   ng-class="{'fall-candy': dispensing[1][0][$index]}">
+                   ng-class="{'fall-candy': beingDispensed[1][0][$index]}"
+                   ng-init="$parent.totalItems = $parent.totalItems+1">
                 <img class="item__image item__image--candy" src="images/candy1.png"
-                     ng-class="{'shake': dispensing[1][0][$index]}">
+                     ng-class="{'shake': beingDispensed[1][0][$index]}">
               </div>
             </div>
             <div class="showcase__column">
               <div ng-repeat="item in inventory[1][1]" class="item item--candy-{{$index}}"
-                   ng-class="{'fall-candy': dispensing[1][1][$index]}">
+                   ng-class="{'fall-candy': beingDispensed[1][1][$index]}"
+                   ng-init="$parent.totalItems = $parent.totalItems+1">
                 <img class="item__image item__image--candy" src="images/candy2.png"
-                   ng-class="{'shake': dispensing[1][1][$index]}">
+                   ng-class="{'shake': beingDispensed[1][1][$index]}">
               </div>
             </div>
             <div class="showcase__column">
               <div ng-repeat="item in inventory[1][2]" class="item item--candy-{{$index}}"
-                   ng-class="{'fall-candy': dispensing[1][2][$index]}">
+                   ng-class="{'fall-candy': beingDispensed[1][2][$index]}"
+                   ng-init="$parent.totalItems = $parent.totalItems+1">
                 <img class="item__image item__image--candy" src="images/candy3.png"
-                     ng-class="{'shake': dispensing[1][2][$index]}">
+                     ng-class="{'shake': beingDispensed[1][2][$index]}">
               </div>
             </div>
           </div>
@@ -107,23 +113,26 @@
           <div class="showcase__row showcase__row--soda">
             <div class="showcase__column">
               <div ng-repeat="item in inventory[2][0]" class="item item--soda-{{$index}}"
-                   ng-class="{'fall-soda': dispensing[2][0][$index]}">
+                   ng-class="{'fall-soda': beingDispensed[2][0][$index]}"
+                   ng-init="$parent.totalItems = $parent.totalItems+1">
                 <img class="item__image item__image--soda" src="images/soda1.png"
-                     ng-class="{'shake': dispensing[2][0][$index]}">
+                     ng-class="{'shake': beingDispensed[2][0][$index]}">
               </div>
             </div>
             <div class="showcase__column">
               <div ng-repeat="item in inventory[2][1]" class="item item--soda-{{$index}}"
-                   ng-class="{'fall-soda': dispensing[2][1][$index]}">
+                   ng-class="{'fall-soda': beingDispensed[2][1][$index]}"
+                   ng-init="$parent.totalItems = $parent.totalItems+1">
                 <img class="item__image item__image--soda" src="images/soda2.png"
-                     ng-class="{'shake': dispensing[2][1][$index]}">
+                     ng-class="{'shake': beingDispensed[2][1][$index]}">
               </div>
             </div>
             <div class="showcase__column">
               <div ng-repeat="item in inventory[2][2]" class="item item--soda-{{$index}}"
-                   ng-class="{'fall-soda': dispensing[2][2][$index]}">
+                   ng-class="{'fall-soda': beingDispensed[2][2][$index]}"
+                   ng-init="$parent.totalItems = $parent.totalItems+1">
                 <img class="item__image item__image--soda" src="images/soda3.png"
-                     ng-class="{'shake': dispensing[2][2][$index]}">
+                     ng-class="{'shake': beingDispensed[2][2][$index]}">
               </div>
             </div>
           </div>
@@ -151,7 +160,7 @@
         </div>
       </div>
       <div class="machine__right">
-        <div class="message">{{message}}</div>
+        <div class="message">{{message.text}}</div>
         <div class="numpad">
           <div class="numpad__row">
             <div class="numpad__button numpad__button--red"
@@ -206,12 +215,12 @@
           </div>
         </div>
         <div class="coin-row">
-          <div class="refund-button" ng-class="{'refund-button--active': hasInsertedCash}" ng-click="refund()">
+          <div class="refund-button" ng-class="{'refund-button--active': state.currentState === 'money'}" ng-click="refund()">
             <div class="refund-button__label">REFUND</div>
           </div>
           <div class="coin-slot">
             <div class="coin-slot__drop-target" data-drop="true" ng-model="slotContents"
-                 jqyoui-droppable="droppableOptions"
+                 jqyoui-droppable="dragDropOptions.droppable"
                  class="coin-slot">
             </div>
           </div>
@@ -224,8 +233,8 @@
       <div class="coinstack coinstack--nickel">
         <img class="coinstack__image" src="images/nickels.svg">
         <div class="coinstack__label">NICKELS</div>
-        <div data-drag="true" jqyoui-draggable="draggableOptions"
-             ng-model="freeNickels" data-jqyoui-options="dragDropOptions"
+        <div data-drag="true" jqyoui-draggable="dragDropOptions.draggable"
+             ng-model="freeCoins.nickels" data-jqyoui-options="dragDropOptions.dragDrop"
              class="coin coin--nickel coin--hidden">
           <img class="coin__image coin__image--nickel" src="images/coin1.png">
         </div>
@@ -233,8 +242,8 @@
       <div class="coinstack coinstack--dime">
         <img class="coinstack__image" src="images/dimes.svg">
         <div class="coinstack__label">DIMES</div>
-        <div data-drag="true" jqyoui-draggable="draggableOptions"
-             ng-model="freeDimes" data-jqyoui-options="dragDropOptions"
+        <div data-drag="true" jqyoui-draggable="dragDropOptions.draggable"
+             ng-model="freeCoins.dimes" data-jqyoui-options="dragDropOptions.dragDrop"
              class="coin coin--dime coin--hidden">
           <img class="coin__image coin__image--dime" src="images/coin2.png">
         </div>
@@ -242,8 +251,8 @@
       <div class="coinstack coinstack--quarter">
         <img class="coinstack__image" src="images/quarters.svg">
         <div class="coinstack__label">QUARTERS</div>
-        <div data-drag="true" jqyoui-draggable="draggableOptions"
-             ng-model="freeQuarters" data-jqyoui-options="dragDropOptions"
+        <div data-drag="true" jqyoui-draggable="dragDropOptions.draggable"
+             ng-model="freeCoins.quarters" data-jqyoui-options="dragDropOptions.dragDrop"
             class="coin coin--dime coin--hidden">
           <img class="coin__image coin__image--quarter" src="images/coin2.png">
         </div>
@@ -262,9 +271,12 @@
   <script src="vending-machine/modules/vending-module.js"></script>
   <script src="vending-machine/services/cash-service.js"></script>
   <script src="vending-machine/services/coin-validator-service.js"></script>
+  <script src="vending-machine/services/drag-drop-service.js"></script>
+  <script src="vending-machine/services/input-service.js"></script>
   <script src="vending-machine/services/inventory-service.js"></script>
   <script src="vending-machine/services/message-service.js"></script>
   <script src="vending-machine/services/output-service.js"></script>
+  <script src="vending-machine/services/select-service.js"></script>
   <script src="vending-machine/services/sound-service.js"></script>
   <script src="vending-machine/services/state-service.js"></script>
   <script src="vending-machine/filters/cents-to-dollars-filter.js"></script>

@@ -2,8 +2,11 @@
 
 angular.module('vendingApp')
 
-.service('CashService', ['COINS', 'SoundService',
-  function (COINS, SoundService){
+.service('CashService', ['COINS',
+  function (COINS){
+
+    var self = this;
+
     var insertedCash = {
       nickel: [],
       dime: [],
@@ -48,13 +51,12 @@ angular.module('vendingApp')
     this.stockRandomCashBank = function(){
       var min = 1;
       var max = 20;
-      addToCashBank(COINS.NICKEL.label, this.createCoins(COINS.NICKEL, _.random(min, max)));
-      addToCashBank(COINS.DIME.label, this.createCoins(COINS.DIME, _.random(min, max)));
-      addToCashBank(COINS.QUARTER.label, this.createCoins(COINS.QUARTER, _.random(min, max)));
+      addToCashBank(COINS.NICKEL.label, self.createCoins(COINS.NICKEL, _.random(min, max)));
+      addToCashBank(COINS.DIME.label, self.createCoins(COINS.DIME, _.random(min, max)));
+      addToCashBank(COINS.QUARTER.label, self.createCoins(COINS.QUARTER, _.random(min, max)));
     };
 
     this.insertCoin = function(coinType, coin){
-      SoundService.insertValidCoin.play();
       insertedCash[coinType].push(coin);
     };
 
@@ -85,19 +87,19 @@ angular.module('vendingApp')
     };
 
     this.pay = function(price) {
-      var changeDue = this.getTotalCredit() - price;
+      var changeDue = self.getTotalCredit() - price;
       var change = [];
       var largestCollection;
       var largestValue;
       bankCredit();
       while (changeDue > 0) {
-        if (changeDue >= 25 && this.getCoinTotal(COINS.QUARTER.label)) {
+        if (changeDue >= 25 && self.getCoinTotal(COINS.QUARTER.label)) {
           largestCollection = cashBank.quarter;
           largestValue = 25;
-        } else if (changeDue >= 10 && this.getCoinTotal(COINS.DIME.label)) {
+        } else if (changeDue >= 10 && self.getCoinTotal(COINS.DIME.label)) {
           largestCollection = cashBank.dime;
           largestValue = 10;
-        } else if (changeDue >= 5 && this.getCoinTotal(COINS.NICKEL.label)) {
+        } else if (changeDue >= 5 && self.getCoinTotal(COINS.NICKEL.label)) {
           largestCollection = cashBank.nickel;
           largestValue = 5;
         } else {
@@ -106,6 +108,21 @@ angular.module('vendingApp')
         change.push(largestCollection.pop());
         changeDue -= largestValue;
       }
-      return change;
+      if (change.length) {
+        return change;
+      }
     };
+
+    this.freeCoins = {
+      nickels: [],
+      dimes: [],
+      quarters: []
+    };
+
+    this.refreshFreeCoins = function() {
+      self.freeCoins.nickels = self.createCoins(COINS.NICKEL, 1);
+      self.freeCoins.dimes = self.createCoins(COINS.DIME, 1);
+      self.freeCoins.quarters = self.createCoins(COINS.QUARTER, 1);
+    };
+        
 }]);

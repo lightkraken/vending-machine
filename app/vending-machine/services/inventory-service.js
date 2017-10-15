@@ -2,8 +2,8 @@
 
 angular.module('vendingApp')
 
-.service('InventoryService', ['$rootScope', 'ITEMS',
-  function ($rootScope, ITEMS){
+.service('InventoryService', ['ITEMS',
+  function (ITEMS){
 
     var createItem = function(type, color){
       return {
@@ -22,6 +22,12 @@ angular.module('vendingApp')
       [ [],[],[] ],
       [ [],[],[] ],
       [ [],[],[] ]
+    ];
+
+    this.beingDispensed = [
+      [ [false],[false],[false] ],
+      [ [false],[false],[false] ],
+      [ [false],[false],[false] ]
     ];
 
     this.stockRandomInventory = function(){
