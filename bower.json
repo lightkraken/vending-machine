@@ -11,6 +11,7 @@
     "jquery": "^3.2.1",
     "jquery-ui": "^1.12.1",
     "angular-dragdrop": "^1.0.13",
-    "howler.js": "howler#^2.0.5"
+    "howler.js": "howler#^2.0.5",
+    "jqueryui-touch-punch": "*"
   }
 }
