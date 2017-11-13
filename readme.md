@@ -1,6 +1,6 @@
 # Vending Machine
 
-[Vending Machine Kata](https://github.com/PillarTechnology/kata-vending-machine), written in JavaScript with AngularJS. Unit tested with Karma / Jasmine.
+[Vending Machine Kata](https://github.com/guyroyse/vending-machine-kata), written in JavaScript with AngularJS. Unit tested with Karma / Jasmine.
 
 ## Live demo
 Take a look at the [live demo](http://www.squintyjosh.com/vending-machine/).
